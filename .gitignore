@@ -1,0 +1,6 @@
+*.o
+*.gcda
+*.gcno
+coding-style-reports.log
+.idea/*
+.git/*
