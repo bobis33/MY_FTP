@@ -14,18 +14,21 @@
 
     #include <netinet/in.h>
 
-struct ftp_s {
-    struct server_s *server;
-    char *path;
-    in_port_t port;
-};
-
 struct server_s {
     int fd;
-    struct sockaddr_in addr;
+    struct protoent *pe;
+    char *path;
+    in_port_t port;
+    struct sockaddr_in sock;
+    socklen_t sock_size;
 };
 
-int parser(const int argc, const char *args[], struct ftp_s *ftp);
-int core(struct ftp_s *ftp);
+struct client_s {
+    int fd;
+};
+
+int parser(const int argc, const char *args[], struct server_s *server);
+int core(struct server_s *server);
+void del_server(struct server_s *server);
 
 #endif //FTP_H

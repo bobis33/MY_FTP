@@ -11,16 +11,13 @@
 #include "server.h"
 #include "client.h"
 
-static void del_ftp(struct ftp_s *ftp)
+int core(struct server_s *server)
 {
-    free(ftp->path);
-    free(ftp);
-}
+    struct client_s *client = malloc(sizeof(struct client_s));
 
-int core(struct ftp_s *ftp)
-{
-    server(ftp);
-    client(ftp);
-    del_ftp(ftp);
+    handle_server(server);
+    handle_client(client);
+    del_server(server);
+    free(client);
     return SUCCESS;
 }

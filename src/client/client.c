@@ -7,7 +7,7 @@
 
 #include "client.h"
 
-int client(struct ftp_s *ftp)
+int handle_client(struct client_s *client)
 {
     return SUCCESS;
 }

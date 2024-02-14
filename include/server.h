@@ -10,6 +10,6 @@
 
     #include "ftp.h"
 
-int server(struct ftp_s *ftp);
+int handle_server(struct server_s *server);
 
 #endif //SERVER_H

@@ -1,4 +1,4 @@
-# B-NWP-400 | myFTP
+# EPITECH Project | B-NWP-400 | myFTP
 
 ```
 ./myftp [port] [path]
@@ -6,3 +6,6 @@
         path  is the path to the home directory for the Anonymous user
 
 ```
+
+The goal of this project is to create a FTP server.
+The network communication will be achieved through the use of TCP sockets.
