@@ -1,5 +1,5 @@
 name: epitech-workflows
-run-name: ${{github.actor}} epitech-workflow run
+run-name: ${{github.actor}} epitech-workflows run
 on:
   push:
     branches-ignore:
@@ -8,71 +8,63 @@ on:
     branches-ignore:
       - " ga-ignore-"
 jobs:
-  check_coding_style:
+
+  check_compilation:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@master
+
+      - name: compile repository
+        run: make
+
+      - name: check binary
+        run: |
+          if [ ! -f "myftp" ] || [ ! -x "myftp" ]; then
+            echo "Binary not found or not executable"
+            exit 1
+          fi
+
+      - name: clean repository
+        run: make fclean
+
+
+  check_coding_style:
+    needs: check_compilation
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
     container: ghcr.io/epitech/coding-style-checker:latest
     steps:
-      - name: Checkout GH repository
+      - name: checkout repository
         uses: actions/checkout@master
-        with:
-          repository: ""
 
-      - name: Run coding-style
+      - name: run coding-style
         run: check.sh ./src /tmp
 
-      - name: Create annotation for coding-style errors
+      - name: display coding-style errors
         run: |
           input=/tmp/coding-style-reports.log
           while IFS= read -r -a line; do
             fields=($(printf "%s" "$line"|cut -d':' --output-delimiter=' ' -f1-))
             echo "::error title=${fields[2]} coding style error,file=${fields[0]},line=${fields[1]}::${fields[3]}"
-          done < $input
+          done < $input || true
 
-      - name: Report banana result
+      - name: count coding-style errors
         run: |
           NB_ERROR=$(cat /tmp/coding-style-reports.log | wc -l)
           if [ $NB_ERROR -gt 0 ]; then
             exit 1
           fi
 
-  check_program_compilation:
+  check_tests:
+    needs: [check_compilation, check_coding_style]
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     container: epitechcontent/epitest-docker:latest
-    needs: check_coding_style
     steps:
-      - name: Checkout GH repository
+      - name: checkout repository
         uses: actions/checkout@master
-        with:
-          repository: ""
 
-      - name: Compile repository
-        run: make
-
-      - name: Clean repository
-        run: make clean
-
-      - name: Check file
-        run: |
-          for file in ${{ vars.EXECUTABLES }};do
-             if [ ! -x "$file" ]; then
-              echo "File $file does not exist or is not executable"
-              exit 1
-            fi
-          done
-
-  run_tests:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    container: epitechcontent/epitest-docker:latest
-    needs: check_program_compilation
-    steps:
-      - name: Checkout GH repository
-        uses: actions/checkout@master
-        with:
-          repository: ""
-
-      - name: Compile tests binaries
+      - name: run tests
         run: make tests_run
-
-
