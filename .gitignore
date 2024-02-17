@@ -4,3 +4,5 @@
 coding-style-reports.log
 .idea/*
 .git/*
+unit_tests
+myftp

@@ -28,7 +28,7 @@ static bool is_dir(const char *path)
     return false;
 }
 
-static int check_args(const int port, const char *path)
+int check_args(const int port, const char *path)
 {
     if (port < 1024 || port > 65535) {
         fprintf(stderr, "Port must be between 1024 and 65535\n");

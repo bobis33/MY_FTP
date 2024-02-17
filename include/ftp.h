@@ -28,6 +28,8 @@ struct client_s {
 };
 
 int parser(const int argc, const char *args[], struct server_s *server);
+int check_args(const int port, const char *path);
+int init_ftp(const int port, const char *path, struct server_s *server);
 int core(struct server_s *server);
 void del_server(struct server_s *server);
 
