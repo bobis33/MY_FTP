@@ -15,9 +15,12 @@ int core(struct server_s *server)
 {
     struct client_s *client = malloc(sizeof(struct client_s));
 
-    handle_server(server);
-    handle_client(client);
+    if (handle_server(server) == ERROR || handle_client(client) == ERROR) {
+        del_server(server);
+        del_client(client);
+        return ERROR;
+    }
     del_server(server);
-    free(client);
+    del_client(client);
     return SUCCESS;
 }

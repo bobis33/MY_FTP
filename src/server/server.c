@@ -46,7 +46,6 @@ int handle_server(struct server_s *server)
         return ERROR;
     }
     if (init_server(server) == ERROR) {
-        del_server(server);
         return ERROR;
     }
     return SUCCESS;

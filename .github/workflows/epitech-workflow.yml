@@ -1,5 +1,5 @@
-name: epitech-workflows
-run-name: ${{github.actor}} epitech-workflows run
+name: epitech-workflow
+run-name: ${{github.actor}} epitech-workflow
 on:
   push:
     branches-ignore:
