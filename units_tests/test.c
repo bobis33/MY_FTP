@@ -7,24 +7,25 @@
 
 
 #include <criterion/criterion.h>
+
 #include "ftp.h"
 
 Test(parser, error_return_value)
 {
-    const int argc = 0;
-    const char *argv[] = {NULL};
+    const char *port = "4242";
+    const char *path = "doc";
     struct server_s *server = {0};
 
-    cr_assert(parser(argc, argv, server) == ERROR);
+    cr_assert(parser(port, path, server) == ERROR);
 }
 
 Test(parser, success_return_value)
 {
-    const int argc = 3;
-    const char *argv[] = {"./myftp", "4242", "doc"};
+    const char *port = "4242";
+    const char *path = "doc";
     struct server_s *server = malloc(sizeof(struct server_s));
 
-    cr_assert(parser(argc, argv, server) == SUCCESS);
+    cr_assert(parser(port, path, server) == SUCCESS);
     free(server);
 }
 

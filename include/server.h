@@ -7,12 +7,12 @@
 
 #pragma once
 
-#ifndef SERVER_H
-    #define SERVER_H
+#ifndef _SERVER_H_
+    #define _SERVER_H_
 
     #include "ftp.h"
 
 int handle_server(struct server_s *server);
 void del_server(struct server_s *server);
 
-#endif //SERVER_H
+#endif /* _SERVER_H_ */

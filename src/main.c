@@ -19,7 +19,7 @@ static void print_help(void)
     write(1, " \x1B[3mAnonymous\x1B[0m user\n", 24);
 }
 
-int main(int argc, const char *argv[])
+int main(int argc, char *argv[])
 {
     struct server_s *server;
 
@@ -29,12 +29,11 @@ int main(int argc, const char *argv[])
             return SUCCESS;
         }
         return EPITECH_ERROR;
+    } else if (argc == 3) {
+        server = malloc(sizeof(struct server_s));
+        return parser(argv[1], argv[2], server)
+        || core(server) == ERROR ? EPITECH_ERROR : SUCCESS;
+    } else {
+        return EPITECH_ERROR;
     }
-    server = malloc(sizeof(struct server_s));
-    if (server == NULL)
-        return EPITECH_ERROR;
-    if (parser(argc, argv, server) == ERROR)
-        return EPITECH_ERROR;
-    core(server);
-    return SUCCESS;
 }

@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 #include "ftp.h"
 
@@ -31,7 +32,7 @@ static bool is_dir(const char *path)
 int check_args(const int port, const char *path)
 {
     if (port < 1024 || port > 65535) {
-        fprintf(stderr, "Port must be between 1024 and 65535\n");
+        write(2, "Port must be between 1024 and 65535\n", 36);
         return ERROR;
     }
     if (is_dir(path) == false)
@@ -55,15 +56,13 @@ int init_ftp(const int port, const char *path, struct server_s *server)
     return SUCCESS;
 }
 
-int parser(const int argc, const char *args[], struct server_s *server)
+int parser(const char *port, const char *path, struct server_s *server)
 {
-    int port;
+    const int port_to_int = atoi(port);
 
-    if (argc == 3) {
-        port = atoi(args[1]);
-        if (check_args(port, args[2]) == ERROR)
-            return ERROR;
-        return init_ftp(port, args[2], server);
+    if (check_args(port_to_int, path) == ERROR) {
+        free(server);
+        return ERROR;
     }
-    return ERROR;
+    return init_ftp(port_to_int, path, server);
 }

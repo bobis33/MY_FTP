@@ -7,8 +7,8 @@
 
 #pragma once
 
-#ifndef FTP_H
-    #define FTP_H
+#ifndef _FTP_H_
+    #define _FTP_H_
 
     #define ERROR -1
     #define EPITECH_ERROR 84
@@ -29,9 +29,9 @@ struct client_s {
     int fd;
 };
 
-int parser(const int argc, const char *args[], struct server_s *server);
+int parser(const char *port, const char *path, struct server_s *server);
 int check_args(const int port, const char *path);
 int init_ftp(const int port, const char *path, struct server_s *server);
 int core(struct server_s *server);
 
-#endif //FTP_H
+#endif /* _FTP_H_ */
