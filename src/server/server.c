@@ -8,6 +8,7 @@
 #include <netdb.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 #include "server.h"
 
@@ -19,10 +20,10 @@ void del_server(struct server_s *server)
 
 static int init_server(struct server_s *server)
 {
+    server->pe = getprotobyname("TCP");
     server->sock.sin_family = AF_INET;
     server->sock.sin_port = htons(server->port);
     server->sock.sin_addr.s_addr = INADDR_ANY;
-    server->pe = getprotobyname("TCP");
     server->sock_size = sizeof(server->sock);
     if (server->pe == NULL)
         return ERROR;
@@ -41,11 +42,10 @@ static int init_server(struct server_s *server)
 
 int handle_server(struct server_s *server)
 {
-    if (server == NULL) {
-        perror("malloc");
+    if (init_server(server) == ERROR)
         return ERROR;
-    }
-    if (init_server(server) == ERROR) {
+    if (listen(server->fd, 42) == -1) {
+        close(server->fd);
         return ERROR;
     }
     return SUCCESS;

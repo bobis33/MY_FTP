@@ -7,10 +7,10 @@
 
 #pragma once
 
-#ifndef _FTP_H_
-    #define _FTP_H_
+#ifndef FTP_H
+    #define FTP_H
 
-    #define ERROR -1
+    #define ERROR (-1)
     #define EPITECH_ERROR 84
     #define SUCCESS 0
 
@@ -18,20 +18,22 @@
 
 struct server_s {
     int fd;
-    struct protoent *pe;
+    int fd_client;
     char *path;
-    in_port_t port;
+    struct protoent *pe;
+    int port;
     struct sockaddr_in sock;
     socklen_t sock_size;
 };
 
 struct client_s {
     int fd;
+    char *ip;
 };
 
 int parser(const char *port, const char *path, struct server_s *server);
-int check_args(const int port, const char *path);
-int init_ftp(const int port, const char *path, struct server_s *server);
+int check_args(int port, const char *path);
+int init_ftp(int port, const char *path, struct server_s *server);
 int core(struct server_s *server);
 
-#endif /* _FTP_H_ */
+#endif /* FTP_H */

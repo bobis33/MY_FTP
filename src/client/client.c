@@ -5,21 +5,20 @@
 ** client
 */
 
-#include <stdlib.h>
 #include <stdio.h>
 
 #include "client.h"
 
-void del_client(struct client_s *client)
-{
-    free(client);
-}
 
-int handle_client(struct client_s *client)
+int handle_client(struct server_s *server)
 {
-    if (client == NULL) {
-        perror("malloc");
-        return ERROR;
+    struct sockaddr client;
+
+    while (1) {
+        server->fd_client = accept(server->fd,
+            &client, &server->sock_size);
+        if (server->fd_client != -1) {
+            dprintf(server->fd_client, "220 (vsFTPd 3.0.0)\n");
+        }
     }
-    return SUCCESS;
 }

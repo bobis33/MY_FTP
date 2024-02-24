@@ -7,12 +7,11 @@
 
 #pragma once
 
-#ifndef _CLIENT_H_
-    #define _CLIENT_H_
+#ifndef CLIENT_H
+    #define CLIENT_H
 
     #include "ftp.h"
 
-int handle_client(struct client_s *client);
-void del_client(struct client_s *client);
+int handle_client(struct server_s *server);
 
-#endif /* _CLIENT_H_ */
+#endif /* CLIENT_H */
