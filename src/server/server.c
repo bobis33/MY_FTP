@@ -44,7 +44,7 @@ int handle_server(struct server_s *server)
 {
     if (init_server(server) == ERROR)
         return ERROR;
-    if (listen(server->fd, 42) == -1) {
+    if (listen(server->fd, 10) == -1) {
         close(server->fd);
         return ERROR;
     }

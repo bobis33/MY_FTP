@@ -12,6 +12,6 @@
 
     #include "ftp.h"
 
-int handle_client(struct server_s *server);
+int handle_clients(struct server_s *server);
 
 #endif /* CLIENT_H */

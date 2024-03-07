@@ -18,7 +18,6 @@
 
 struct server_s {
     int fd;
-    int fd_client;
     char *path;
     struct protoent *pe;
     int port;
@@ -27,8 +26,12 @@ struct server_s {
 };
 
 struct client_s {
-    int fd;
-    char *ip;
+    fd_set master_fds;
+    fd_set read_fds;
+    struct sockaddr_in client_addr;
+    socklen_t client_len;
+    int max_fd;
+    int new_fd;
 };
 
 int parser(const char *port, const char *path, struct server_s *server);

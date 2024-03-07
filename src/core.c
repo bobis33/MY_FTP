@@ -11,7 +11,7 @@
 
 int core(struct server_s *server)
 {
-    if (handle_server(server) == ERROR || handle_client(server) == ERROR) {
+    if (handle_server(server) == ERROR || handle_clients(server) == ERROR) {
         del_server(server);
         return ERROR;
     }
