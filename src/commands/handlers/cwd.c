@@ -21,12 +21,8 @@ void cmd_cwd(
 
     (void)args;
     (void)client;
-    if (!is_logged(client_data, fd))
+    if (!is_logged(client_data, fd) || is_args_empty(args, fd))
         return;
-    if (args == NULL) {
-        write(fd, SYNTAX_ERROR_501, strlen(SYNTAX_ERROR_501));
-        return;
-    }
     snprintf(new_path, sizeof(new_path), "%s/%s", client_data->path, args);
     if (chdir(new_path) == 0) {
         write(fd, CDUP_200, strlen(CDUP_200));

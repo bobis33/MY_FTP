@@ -23,10 +23,8 @@ void cmd_user(
         write(fd, WRONG_SEQUENCE_503, strlen(WRONG_SEQUENCE_503));
         return;
     }
-    if (args == NULL) {
-        write(fd, SYNTAX_ERROR_501, strlen(SYNTAX_ERROR_501));
+    if (is_args_empty(args, fd))
         return;
-    }
     if (client_data->username != NULL) {
         free(client_data->username);
         client_data->username = NULL;

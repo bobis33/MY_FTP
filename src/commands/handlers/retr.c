@@ -20,10 +20,6 @@ void cmd_retr(
 {
     (void)args;
     (void)client;
-    if (!is_logged(client_data, fd))
+    if (!is_logged(client_data, fd) || is_args_empty(args, fd))
         return;
-    if (args == NULL) {
-        write(fd, SYNTAX_ERROR_501, strlen(SYNTAX_ERROR_501));
-        return;
-    }
 }

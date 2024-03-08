@@ -11,6 +11,15 @@
 #include "tools.h"
 #include "messages.h"
 
+bool is_args_empty(const char *args, const int fd)
+{
+    if (args == NULL) {
+        write(fd, SYNTAX_ERROR_501, strlen(SYNTAX_ERROR_501));
+        return true;
+    }
+    return false;
+}
+
 bool is_logged(struct data_s *client_data, const int fd)
 {
     if (client_data->is_connected == false) {

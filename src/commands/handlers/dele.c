@@ -22,13 +22,8 @@ void cmd_dele(
     char buff[1024];
 
     (void)client;
-    if (!is_logged(client_data, fd))
+    if (!is_logged(client_data, fd) || is_args_empty(args, fd))
         return;
-    if (args == NULL) {
-        write(fd, SYNTAX_ERROR_501, strlen(SYNTAX_ERROR_501));
-        return;
-    }
-
     getcwd(buff, sizeof(buff));
     if (args[0] == '/') {
         path = strdup(args);
