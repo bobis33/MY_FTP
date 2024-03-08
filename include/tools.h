@@ -15,7 +15,7 @@
 void disconnect_client(
     struct client_s *client,
     struct data_s *disconnected_client);
-int check_args_cmd(const char *args, int fd);
 struct data_s *get_client_by_fd(struct client_s *client, int fd);
+bool is_logged(struct data_s *client_data, int fd);
 
 #endif /* TOOLS_H */

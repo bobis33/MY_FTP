@@ -7,9 +7,9 @@
 
 #include <unistd.h>
 #include <string.h>
-#include <stdlib.h>
 #include "commands.h"
 #include "messages.h"
+#include "tools.h"
 
 void cmd_quit(
     struct data_s *client_data,
@@ -19,9 +19,5 @@ void cmd_quit(
 {
     (void)args;
     write(fd, QUIT_221, strlen(QUIT_221));
-    client_data->is_connected = false;
-    free(client_data->username);
-    close(client_data->fd);
-    FD_CLR(client_data->fd, &client->master_fds);
-    client_data->username = NULL;
+    disconnect_client(client, client_data);
 }

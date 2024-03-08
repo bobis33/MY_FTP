@@ -9,6 +9,7 @@
 #include <string.h>
 #include "commands.h"
 #include "messages.h"
+#include "tools.h"
 
 void cmd_pwd(
     struct data_s *client_data,
@@ -16,10 +17,18 @@ void cmd_pwd(
     const int fd,
     const char *args)
 {
+    char buff[1024];
+
     (void)args;
     (void)client;
-    if (client_data->is_connected == false) {
-        write(fd, NOT_LOGGED_530, strlen(NOT_LOGGED_530));
+    if (!is_logged(client_data, fd))
         return;
+    if (!getcwd(buff, sizeof(buff))) {
+        write(fd, NOT_FOUND_550, strlen(NOT_FOUND_550));
+        return;
+    } else {
+        write(fd, "257 ", 4);
+        write(fd, buff, strlen(buff));
+        write(fd, "\r\n", 2);
     }
 }

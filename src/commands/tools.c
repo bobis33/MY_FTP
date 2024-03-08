@@ -11,13 +11,24 @@
 #include "tools.h"
 #include "messages.h"
 
+bool is_logged(struct data_s *client_data, const int fd)
+{
+    if (client_data->is_connected == false) {
+        write(fd, NOT_LOGGED_530, strlen(NOT_LOGGED_530));
+        return false;
+    }
+    return true;
+}
+
 void disconnect_client(
     struct client_s *client,
     struct data_s *disconnected_client)
 {
+    disconnected_client->is_connected = false;
+    free(disconnected_client->username);
     close(disconnected_client->fd);
     FD_CLR(disconnected_client->fd, &client->master_fds);
-    disconnected_client->is_connected = 0;
+    disconnected_client->username = NULL;
 }
 
 struct data_s *get_client_by_fd(struct client_s *client, int fd)
@@ -28,19 +39,4 @@ struct data_s *get_client_by_fd(struct client_s *client, int fd)
         }
     }
     return NULL;
-}
-
-int check_args_cmd(const char *args, const int fd)
-{
-    if (args == NULL) {
-        write(fd, SYNTAX_ERROR_501, strlen(SYNTAX_ERROR_501));
-        return ERROR;
-    }
-    for (size_t index = 0; index < strlen(args); index++) {
-        if (args[index] == ' ') {
-            write(fd, SYNTAX_ERROR_501, strlen(SYNTAX_ERROR_501));
-            return ERROR;
-        }
-    }
-    return SUCCESS;
 }
