@@ -17,7 +17,7 @@ static cmd_info_t cmd_table[] = {
     {"CWD", cmd_cwd},
     {"CDUP", cmd_cdup},
     {"QUIT", cmd_quit},
-    {"DELE", cmd_dele}, // to finish
+    {"DELE", cmd_dele},
     {"PWD", cmd_pwd},
     {"PASV", cmd_pasv}, // to finish
     {"PORT", cmd_port}, // to finish

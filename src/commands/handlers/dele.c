@@ -18,12 +18,29 @@ void cmd_dele(
     const int fd,
     const char *args)
 {
-    (void)args;
+    char *path = NULL;
+    char buff[1024];
+
     (void)client;
     if (!is_logged(client_data, fd))
         return;
     if (args == NULL) {
         write(fd, SYNTAX_ERROR_501, strlen(SYNTAX_ERROR_501));
         return;
+    }
+
+    getcwd(buff, sizeof(buff));
+    if (args[0] == '/') {
+        path = strdup(args);
+    } else {
+        path = malloc(strlen(buff) + strlen(args) + 2);
+        strcpy(path, buff);
+        strcat(path, "/");
+        strcat(path, args);
+    }
+    if (remove(path) == 0) {
+        write(fd, DELE_250, strlen(DELE_250));
+    } else {
+        write(fd, NOT_FOUND_550, strlen(NOT_FOUND_550));
     }
 }
