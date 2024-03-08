@@ -18,11 +18,11 @@ static cmd_info_t cmd_table[] = {
     {"CDUP", NULL},
     {"QUIT", cmd_quit},
     {"DELE", NULL},
-    {"PWD", NULL},
+    {"PWD", cmd_pwd}, // to finish
     {"PASV", NULL},
     {"PORT", NULL},
     {"HELP", NULL},
-    {"NOOP", NULL},
+    {"NOOP", cmd_noop},
     {"RETR", NULL},
     {"STOR", NULL},
     {"LIST", NULL},

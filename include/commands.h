@@ -22,6 +22,21 @@ typedef struct cmd_info_s {
         const char *args);
 } cmd_info_t;
 
+void cmd_noop(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
+void cmd_pass(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
+void cmd_pwd(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
 void cmd_quit(
     struct data_s *client_data,
     struct client_s *client,
@@ -32,11 +47,5 @@ void cmd_user(
     struct client_s *client,
     int fd,
     const char *args);
-void cmd_pass(
-    struct data_s *client_data,
-    struct client_s *client,
-    int fd,
-    const char *args);
-
 
 #endif /* COMMANDS_H */
