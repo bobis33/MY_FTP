@@ -24,7 +24,6 @@ static int init_server(struct server_s *server)
     server->sock.sin_family = AF_INET;
     server->sock.sin_port = htons(server->port);
     server->sock.sin_addr.s_addr = INADDR_ANY;
-    server->sock_size = sizeof(server->sock);
     if (server->pe == NULL)
         return ERROR;
     server->fd = socket(AF_INET, SOCK_STREAM, server->pe->p_proto);
@@ -44,7 +43,7 @@ int handle_server(struct server_s *server)
 {
     if (init_server(server) == ERROR)
         return ERROR;
-    if (listen(server->fd, 10) == -1) {
+    if (listen(server->fd, MAX_CLIENTS) == -1) {
         close(server->fd);
         return ERROR;
     }
