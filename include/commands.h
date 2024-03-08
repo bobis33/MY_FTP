@@ -22,6 +22,11 @@ typedef struct cmd_info_s {
         const char *args);
 } cmd_info_t;
 
+void cmd_cwd(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
 void cmd_cdup(
     struct data_s *client_data,
     struct client_s *client,

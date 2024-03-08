@@ -14,7 +14,7 @@
 static cmd_info_t cmd_table[] = {
     {"USER", cmd_user},
     {"PASS", cmd_pass},
-    {"CWD", NULL},
+    {"CWD", cmd_cwd},
     {"CDUP", cmd_cdup},
     {"QUIT", cmd_quit},
     {"DELE", NULL},
