@@ -31,6 +31,7 @@ struct data_s {
     int fd;
     char *username;
     bool is_connected;
+    char *path;
 };
 
 struct client_s {
@@ -39,6 +40,7 @@ struct client_s {
     struct sockaddr_in client_addr;
     socklen_t client_len;
     int max_fd;
+    char *path;
     struct data_s clients[10];
 };
 

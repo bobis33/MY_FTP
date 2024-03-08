@@ -21,6 +21,7 @@ static void create_new_client(struct client_s *client, int new_fd)
             client->clients[i].fd = new_fd;
             client->clients[i].username = strdup("\n");
             client->clients[i].is_connected = false;
+            client->clients[i].path = strdup(client->path);
             FD_SET(new_fd, &client->master_fds);
             client->max_fd = client->max_fd > new_fd ? client->max_fd : new_fd;
             write(new_fd, CONNECTED_220, strlen(CONNECTED_220));
@@ -91,6 +92,8 @@ int handle_clients(struct server_s *server)
 
     client = malloc(sizeof(struct client_s));
     client->client_len = sizeof(client->client_addr);
+    client->path = strdup(server->path);
+    chdir(client->path);
     FD_ZERO(&client->master_fds);
     FD_SET(server->fd, &client->master_fds);
     client->max_fd = server->fd;
