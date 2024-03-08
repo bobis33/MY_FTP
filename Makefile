@@ -9,7 +9,9 @@
 SRC				=   src/core.c 							    \
                     src/parser.c							\
                     src/server/server.c                     \
-                    src/client/client.c
+                    src/client/client.c                     \
+                    src/commands/handle_inputs.c            \
+                    src/commands/tools.c                    \
 
 SRC_MAIN 		=	src/main.c
 

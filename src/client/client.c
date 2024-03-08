@@ -10,6 +10,7 @@
 #include <unistd.h>
 
 #include "client.h"
+#include "commands.h"
 
 static int accept_new_client(struct client_s *client, const int server_fd)
 {
@@ -25,25 +26,6 @@ static int accept_new_client(struct client_s *client, const int server_fd)
     return new_fd;
 }
 
-static void handle_client_data(struct client_s *client, const int client_fd)
-{
-    char buffer[1024] = "\0";
-    int buffer_size = sizeof(buffer);
-    ssize_t read_value = read(client_fd, buffer, buffer_size);
-
-    switch (read_value) {
-    case -1:
-        perror("read");
-        break;
-    case 0:
-        close(client_fd);
-        FD_CLR(client_fd, &client->master_fds);
-        break;
-    default:
-        dprintf(client_fd, "input: %s\n", buffer);
-        break;
-    }
-}
 
 static void process_ready_fds(struct client_s *client, const int server_fd, const int index)
 {
@@ -52,10 +34,10 @@ static void process_ready_fds(struct client_s *client, const int server_fd, cons
     if (index == server_fd) {
         client->new_fd = accept_new_client(client, server_fd);
         if (client->new_fd != -1) {
-            handle_client_data(client, client->new_fd);
+            handle_inputs(client, client->new_fd);
         }
     } else {
-        handle_client_data(client, index);
+        handle_inputs(client, index);
     }
 }
 
@@ -68,7 +50,7 @@ static int handle_select(struct client_s *client, const int select_value, const 
     case 0:
         return SUCCESS;
     default:
-        for (int index = 0; index <= client->max_fd; index++)
+        for (int index = 0; index != FD_SETSIZE; index++)
             process_ready_fds(client, server_fd, index);
         return SUCCESS;
     }

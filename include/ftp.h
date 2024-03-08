@@ -13,6 +13,8 @@
     #define ERROR (-1)
     #define EPITECH_ERROR 84
     #define SUCCESS 0
+    #define MAX_CLIENTS 10
+
 
     #include <netinet/in.h>
 
