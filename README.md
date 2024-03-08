@@ -1,11 +1,53 @@
 # EPITECH Project | B-NWP-400 | myFTP
 
+<img src="doc/Epitech_banner.png" alt="Architecture">
+
+## Description
+
+The goal of this project is to create a FTP server [RFC959 compliant](https://www.rfc-editor.org/rfc/rfc959).
+The network communication will be achieved through the use of TCP sockets.
+
+## Usage
+
+### Build my_ftp
+
+``` bash
+$> make
+[...]
 ```
+
+you can also use the following commands:
+
+```bash
+$> make debug
+[...]
+```
+
+### Launch my_ftp
+
+```bash
 ./myftp [port] [path]
         port  is the port number on which the server socket listens
         path  is the path to the home directory for the Anonymous user
-
 ```
 
-The goal of this project is to create a FTP server.
-The network communication will be achieved through the use of TCP sockets.
+## Launch tests
+
+```bash
+$> make tests_run
+[...]
+```
+
+## Commit Norms
+
+| Commit Type | Description                                                                                                               |
+|:------------|:--------------------------------------------------------------------------------------------------------------------------|
+| build       | Changes that affect the build system or external dependencies (npm, make, etc.)                                           |
+| ci          | Changes related to integration files and scripts or configuration (Travis, Ansible, BrowserStack, etc.)                   |
+| feat        | Addition of a new feature                                                                                                 |
+| fix         | Bug fix                                                                                                                   |
+| perf        | Performance improvements                                                                                                  |
+| refactor    | Modification that neither adds a new feature nor improves performance                                                     |
+| style       | Change that does not affect functionality or semantics (indentation, formatting, adding space, renaming a variable, etc.) |
+| docs        | Writing or updating documentation                                                                                         |
+| test        | Addition or modification of tests                                                                                         |
