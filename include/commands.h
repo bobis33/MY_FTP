@@ -22,17 +22,27 @@ typedef struct cmd_info_s {
         const char *args);
 } cmd_info_t;
 
-void cmd_cwd(
-    struct data_s *client_data,
-    struct client_s *client,
-    int fd,
-    const char *args);
 void cmd_cdup(
     struct data_s *client_data,
     struct client_s *client,
     int fd,
     const char *args);
+void cmd_cwd(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
+void cmd_dele(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
 void cmd_help(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
+void cmd_list(
     struct data_s *client_data,
     struct client_s *client,
     int fd,
@@ -47,12 +57,32 @@ void cmd_pass(
     struct client_s *client,
     int fd,
     const char *args);
+void cmd_pasv(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
+void cmd_port(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
 void cmd_pwd(
     struct data_s *client_data,
     struct client_s *client,
     int fd,
     const char *args);
 void cmd_quit(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
+void cmd_retr(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
+void cmd_stor(
     struct data_s *client_data,
     struct client_s *client,
     int fd,

@@ -17,15 +17,15 @@ static cmd_info_t cmd_table[] = {
     {"CWD", cmd_cwd},
     {"CDUP", cmd_cdup},
     {"QUIT", cmd_quit},
-    {"DELE", NULL},
+    {"DELE", cmd_dele}, // to finish
     {"PWD", cmd_pwd},
-    {"PASV", NULL},
-    {"PORT", NULL},
+    {"PASV", cmd_pasv}, // to finish
+    {"PORT", cmd_port}, // to finish
     {"HELP", cmd_help}, // to finish
     {"NOOP", cmd_noop},
-    {"RETR", NULL},
-    {"STOR", NULL},
-    {"LIST", NULL},
+    {"RETR", cmd_retr}, // to finish
+    {"STOR", cmd_stor}, // to finish
+    {"LIST", cmd_list}, // to finish
     {NULL, NULL}
 };
 

@@ -10,15 +10,21 @@ SRC				=   src/core.c 							    \
                     src/parser.c							\
                     src/server/server.c                     \
                     src/client/client.c                     \
-                    src/commands/handle_inputs.c            \
                     src/commands/tools.c                    \
+                    src/commands/handle_inputs.c            \
                     src/commands/handlers/cdup.c            \
                     src/commands/handlers/cwd.c             \
+                    src/commands/handlers/dele.c            \
                     src/commands/handlers/help.c            \
+                    src/commands/handlers/list.c            \
                     src/commands/handlers/noop.c            \
                     src/commands/handlers/pass.c            \
+                    src/commands/handlers/pasv.c            \
+                    src/commands/handlers/port.c            \
                     src/commands/handlers/pwd.c             \
                     src/commands/handlers/quit.c            \
+                    src/commands/handlers/retr.c            \
+                    src/commands/handlers/stor.c            \
                     src/commands/handlers/user.c            \
 
 SRC_MAIN 		=	src/main.c
