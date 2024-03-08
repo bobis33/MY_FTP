@@ -19,6 +19,7 @@ static const char USER_OK_331[] = "331 User name okay, need password\r\n";
 static const char WRONG_SEQUENCE_503[] = "503 Bad sequence.\n\r";
 static const char LOGIN_230[] = "230 User logged in, proceed.\r\n";
 static const char NOOP_200[] = "200 NOOP ok.\r\n";
+static const char HELP_214[] = "214 Help message.\r\n";
 
 
 
