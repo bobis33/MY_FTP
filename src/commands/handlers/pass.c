@@ -21,8 +21,10 @@ void cmd_pass(
     const char *args)
 {
     (void)client;
-    if (client_data->username == NULL || client_data->is_connected == true) {
-        write(fd, WRONG_SEQUENCE_503, strlen(WRONG_SEQUENCE_503));
+    if (!is_logged(client_data, fd))
+        return;
+    if (client_data->username == NULL) {
+        write(fd, NEED_ACCOUNT_332, strlen(NEED_ACCOUNT_332));
         return;
     }
     if (strcmp(client_data->username, DEFAULT_USER) == 0 &&

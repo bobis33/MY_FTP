@@ -31,6 +31,6 @@ void cmd_user(
         free(client_data->username);
         client_data->username = NULL;
     }
-    write(fd, USER_OK_331, strlen(USER_OK_331));
+    write(fd, USER_331, strlen(USER_331));
     client_data->username = strdup(args);
 }
