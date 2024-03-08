@@ -9,60 +9,70 @@
 #include <string.h>
 #include "commands.h"
 #include "tools.h"
-
-static void cmd_user(struct client_s *client, const int fd, const char *args) {
-    (void)client;
-    if (check_args_cmd(args, fd) == ERROR)
-        return;
-    dprintf(fd, "331 User name okay, need password.\n");
-}
-
-static void cmd_quit(struct client_s *client, const int fd, const char *args) {
-    (void)client;
-    (void)args;
-    dprintf(fd, "221 Goodbye.\n");
-    close(fd);
-    FD_CLR(fd, &client->master_fds);
-}
+#include "messages.h"
 
 static cmd_info_t cmd_table[] = {
-        {"USER", cmd_user},
-        {"PASS", NULL},
-        {"CWD", NULL},
-        {"CDUP", NULL},
-        {"QUIT", cmd_quit},
-        {"DELE", NULL},
-        {"PWD", NULL},
-        {"PASV", NULL},
-        {"PORT", NULL},
-        {"HELP", NULL},
-        {"NOOP", NULL},
-        {"RETR", NULL},
-        {"STOR", NULL},
-        {"LIST", NULL},
-        {NULL, NULL}
+    {"USER", cmd_user},
+    {"PASS", cmd_pass},
+    {"CWD", NULL},
+    {"CDUP", NULL},
+    {"QUIT", cmd_quit},
+    {"DELE", NULL},
+    {"PWD", NULL},
+    {"PASV", NULL},
+    {"PORT", NULL},
+    {"HELP", NULL},
+    {"NOOP", NULL},
+    {"RETR", NULL},
+    {"STOR", NULL},
+    {"LIST", NULL},
+    {NULL, NULL}
 };
 
-void check_cmd(struct client_s *client, const int fd, const char *buffer)
+void exec_client_command(
+    struct client_s *client,
+    const int fd,
+    const char *args,
+    size_t index)
+{
+    struct data_s *current_client = NULL;
+
+    for (int j = 0; j < MAX_CLIENTS; j++) {
+        if (client->clients[j].fd == fd) {
+            current_client = &client->clients[j];
+            break;
+        }
+    }
+    if (current_client)
+        cmd_table[index].handler(current_client, client, fd, args);
+}
+
+void check_cmd(
+    struct client_s *client,
+    const int fd,
+    const char *buffer)
 {
     char *cmd_str = strtok((char *)buffer, " \r\n");
     char *args = strtok(NULL, "\r\n");
 
     if (cmd_str == NULL)
         return;
-
     for (size_t i = 0; cmd_table[i].name != NULL; i++) {
-        if (strncmp(cmd_str, cmd_table[i].name, strlen(cmd_table[i].name)) == 0) {
-            if (cmd_table[i].handler != NULL) {
-                cmd_table[i].handler(client, fd, args);
-            }
-            return;
-        }
+        if (strncmp(cmd_str,
+                cmd_table[i].name,
+                strlen(cmd_table[i].name)) != 0)
+            continue;
+        if (cmd_table[i].handler != NULL)
+            exec_client_command(client, fd, args, i);
+        return;
     }
-    dprintf(fd, "502 Command not implemented.\n");
+    write(fd, NOT_IMPLEMENTED_502, strlen(NOT_IMPLEMENTED_502));
 }
 
-int handle_inputs(struct client_s *client, const int fd)
+int handle_inputs(
+    struct client_s *client,
+    struct data_s *client_data,
+    const int fd)
 {
     char buffer[1024] = "\0";
     int buffer_size = sizeof(buffer);
@@ -74,7 +84,7 @@ int handle_inputs(struct client_s *client, const int fd)
             break;
         case 0:
             close(fd);
-            FD_CLR(fd, &client->master_fds);
+            disconnect_client(client, client_data);
             break;
         default:
             check_cmd(client, fd, buffer);

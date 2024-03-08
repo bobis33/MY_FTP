@@ -12,6 +12,9 @@ SRC				=   src/core.c 							    \
                     src/client/client.c                     \
                     src/commands/handle_inputs.c            \
                     src/commands/tools.c                    \
+                    src/commands/handlers/quit.c            \
+                    src/commands/handlers/user.c            \
+                    src/commands/handlers/pass.c            \
 
 SRC_MAIN 		=	src/main.c
 

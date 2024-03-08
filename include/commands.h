@@ -11,13 +11,32 @@
     #define COMMANDS_H
 
     #include <stdio.h>
-    #include "client.h"
+    #include "ftp.h"
 
 typedef struct cmd_info_s {
     const char *name;
-    void (*handler)(struct client_s *client, const int fd, const char *args);
+    void (*handler)(
+        struct data_s *client_data,
+        struct client_s *client,
+        int fd,
+        const char *args);
 } cmd_info_t;
 
-int handle_inputs(struct client_s *client, int fd);
+void cmd_quit(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
+void cmd_user(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
+void cmd_pass(
+    struct data_s *client_data,
+    struct client_s *client,
+    int fd,
+    const char *args);
+
 
 #endif /* COMMANDS_H */
