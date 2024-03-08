@@ -17,6 +17,7 @@
 
 
     #include <netinet/in.h>
+    #include <stdbool.h>
 
 struct server_s {
     int fd;
@@ -24,7 +25,12 @@ struct server_s {
     struct protoent *pe;
     int port;
     struct sockaddr_in sock;
-    socklen_t sock_size;
+};
+
+struct data_s {
+    int fd;
+    char *username;
+    bool is_connected;
 };
 
 struct client_s {
@@ -33,7 +39,7 @@ struct client_s {
     struct sockaddr_in client_addr;
     socklen_t client_len;
     int max_fd;
-    int new_fd;
+    struct data_s clients[10];
 };
 
 int parser(const char *port, const char *path, struct server_s *server);
