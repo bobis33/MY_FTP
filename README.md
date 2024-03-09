@@ -1,4 +1,4 @@
-# EPITECH Project | B-NWP-400 | myFTP
+# EPITECH Project | B-NWP-400 | my_ftp
 
 <img src="doc/Epitech_banner.png" alt="Architecture">
 
@@ -31,7 +31,7 @@ $> make debug
         path  is the path to the home directory for the Anonymous user
 ```
 
-## Launch tests
+### Launch tests
 
 ```bash
 $> make tests_run

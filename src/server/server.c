@@ -21,18 +21,19 @@ void del_server(struct server_s *server)
 static int init_server(struct server_s *server)
 {
     server->pe = getprotobyname("TCP");
+    if (server->pe == NULL)
+        return ERROR;
     server->sock.sin_family = AF_INET;
     server->sock.sin_port = htons(server->port);
     server->sock.sin_addr.s_addr = INADDR_ANY;
-    if (server->pe == NULL)
-        return ERROR;
     server->fd = socket(AF_INET, SOCK_STREAM, server->pe->p_proto);
-    if (server->fd == -1) {
+    if (server->fd == ERROR) {
         perror("socket");
         return ERROR;
     }
-    if (bind(server->fd, (const struct sockaddr*) &server->sock,
-            sizeof(server->sock)) == -1) {
+    if (bind(server->fd,
+            (const struct sockaddr*) &server->sock,
+            sizeof(server->sock)) == ERROR) {
         perror("bind");
         return ERROR;
     }
@@ -43,7 +44,7 @@ int handle_server(struct server_s *server)
 {
     if (init_server(server) == ERROR)
         return ERROR;
-    if (listen(server->fd, MAX_CLIENTS) == -1) {
+    if (listen(server->fd, MAX_CLIENTS) == ERROR) {
         close(server->fd);
         return ERROR;
     }

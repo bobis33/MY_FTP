@@ -20,7 +20,7 @@ static void create_new_client(struct client_s *client, int new_fd)
         if (client->clients[i].username == NULL) {
             client->clients[i].fd = new_fd;
             client->clients[i].username = strdup("\n");
-            client->clients[i].is_connected = false;
+            client->clients[i].is_logged = false;
             client->clients[i].path = strdup(client->path);
             FD_SET(new_fd, &client->master_fds);
             client->max_fd = client->max_fd > new_fd ? client->max_fd : new_fd;
@@ -30,7 +30,7 @@ static void create_new_client(struct client_s *client, int new_fd)
     }
 }
 
-static int accept_new_client(struct client_s *client, const int server_fd)
+static int accept_new_client(struct client_s *client, int server_fd)
 {
     int new_fd = accept(server_fd,
                         (struct sockaddr *)&client->client_addr,
@@ -48,22 +48,22 @@ static int accept_new_client(struct client_s *client, const int server_fd)
     return new_fd;
 }
 
-static void process_ready_fds(struct client_s *client, int serv_fd, int index)
+static void process_ready_fds(struct client_s *client, int serv_fd, int fd)
 {
     struct data_s *current_client;
     int new_fd;
 
-    if (!FD_ISSET(index, &client->read_fds))
+    if (!FD_ISSET(fd, &client->read_fds))
         return;
-    if (index == serv_fd) {
+    if (fd == serv_fd) {
         new_fd = accept_new_client(client, serv_fd);
         if (new_fd != ERROR)
             FD_SET(new_fd, &client->master_fds);
     } else {
-        current_client = get_client_by_fd(client, index);
+        current_client = get_client_by_fd(client, fd);
         if (!current_client)
             return;
-        handle_inputs(client, current_client, index);
+        handle_inputs(client, current_client, fd);
     }
 }
 

@@ -5,7 +5,6 @@
 ** user.c
 */
 
-#include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -19,8 +18,8 @@ void cmd_user(
     const char *args)
 {
     (void)client;
-    if (client_data->is_connected == true) {
-        write(fd, WRONG_SEQUENCE_503, strlen(WRONG_SEQUENCE_503));
+    if (client_data->is_logged == true) {
+        write(fd, BAD_SEQUENCE_503, strlen(BAD_SEQUENCE_503));
         return;
     }
     if (is_args_empty(args, fd))

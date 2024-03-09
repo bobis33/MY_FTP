@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include <string.h>
 #include <malloc.h>
-#include "commands.h"
 #include "messages.h"
 #include "tools.h"
 
@@ -19,7 +18,7 @@ void cmd_dele(
     const char *args)
 {
     char *path = NULL;
-    char buff[1024];
+    char buff[MAX_PATH];
 
     (void)client;
     if (!is_logged(client_data, fd) || is_args_empty(args, fd))
@@ -36,6 +35,6 @@ void cmd_dele(
     if (remove(path) == 0) {
         write(fd, DELE_250, strlen(DELE_250));
     } else {
-        write(fd, NOT_FOUND_550, strlen(NOT_FOUND_550));
+        write(fd, NOT_TAKEN_550, strlen(NOT_TAKEN_550));
     }
 }

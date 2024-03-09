@@ -11,6 +11,15 @@
 #include "tools.h"
 #include "messages.h"
 
+bool check_ptr(const void *ptr, const int fd)
+{
+    if (ptr == NULL) {
+        write(fd, LOCAL_ERROR_451, strlen(LOCAL_ERROR_451));
+        return false;
+    }
+    return true;
+}
+
 bool is_args_empty(const char *args, const int fd)
 {
     if (args == NULL) {
@@ -22,7 +31,7 @@ bool is_args_empty(const char *args, const int fd)
 
 bool is_logged(struct data_s *client_data, const int fd)
 {
-    if (client_data->is_connected == false) {
+    if (client_data->is_logged == false) {
         write(fd, NOT_LOGGED_530, strlen(NOT_LOGGED_530));
         return false;
     }
@@ -33,7 +42,7 @@ void disconnect_client(
     struct client_s *client,
     struct data_s *disconnected_client)
 {
-    disconnected_client->is_connected = false;
+    disconnected_client->is_logged = false;
     free(disconnected_client->username);
     close(disconnected_client->fd);
     FD_CLR(disconnected_client->fd, &client->master_fds);

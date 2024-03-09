@@ -5,7 +5,6 @@
 ** core
 */
 
-#include "ftp.h"
 #include "server.h"
 #include "client.h"
 

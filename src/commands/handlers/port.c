@@ -5,11 +5,6 @@
 ** port.c
 */
 
-#include <unistd.h>
-#include <string.h>
-#include <malloc.h>
-#include "commands.h"
-#include "messages.h"
 #include "tools.h"
 
 void cmd_port(
@@ -20,10 +15,6 @@ void cmd_port(
 {
     (void)args;
     (void)client;
-    if (!is_logged(client_data, fd))
+    if (!is_logged(client_data, fd) || is_args_empty(args, fd))
         return;
-    if (args == NULL) {
-        write(fd, SYNTAX_ERROR_501, strlen(SYNTAX_ERROR_501));
-        return;
-    }
 }

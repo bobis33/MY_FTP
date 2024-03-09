@@ -7,7 +7,6 @@
 
 #include <unistd.h>
 #include <string.h>
-#include "commands.h"
 #include "messages.h"
 #include "tools.h"
 

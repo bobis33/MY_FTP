@@ -19,7 +19,7 @@ static bool is_dir(const char *path)
 
     if (path == NULL)
         return false;
-    if (stat(path, &st) == -1) {
+    if (stat(path, &st) == ERROR) {
         perror("stat");
         return false;
     }
@@ -28,18 +28,7 @@ static bool is_dir(const char *path)
     return false;
 }
 
-int check_args(const int port, const char *path)
-{
-    if (port < 1024 || port > 65535) {
-        write(2, "Port must be between 1024 and 65535\n", 36);
-        return ERROR;
-    }
-    if (is_dir(path) == false)
-        return ERROR;
-    return SUCCESS;
-}
-
-int init_ftp(const int port, const char *path, struct server_s *server)
+static int init_ftp(struct server_s *server, const int port, const char *path)
 {
     if (server == NULL) {
         perror("malloc");
@@ -55,7 +44,18 @@ int init_ftp(const int port, const char *path, struct server_s *server)
     return SUCCESS;
 }
 
-int parser(const char *port, const char *path, struct server_s *server)
+static int check_args(const int port, const char *path)
+{
+    if (port < 1024 || port > 65535) {
+        write(2, "Port must be between 1024 and 65535\n", 36);
+        return ERROR;
+    }
+    if (is_dir(path) == false)
+        return ERROR;
+    return SUCCESS;
+}
+
+int parser(struct server_s *server, const char *port, const char *path)
 {
     const int port_to_int = atoi(port);
 
@@ -63,5 +63,5 @@ int parser(const char *port, const char *path, struct server_s *server)
         free(server);
         return ERROR;
     }
-    return init_ftp(port_to_int, path, server);
+    return init_ftp(server, port_to_int, path);
 }

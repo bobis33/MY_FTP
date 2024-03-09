@@ -23,13 +23,13 @@ static const char PASV_227[] = "227 Passive Mode (%d,%d,%d,%d,%d,%d).\r\n";
 static const char LOGIN_230[] = "230 User logged in, proceed.\r\n";
 static const char DELE_250[] = "250 Requested file action okay.\r\n";
 static const char PWD_257[] = "257 \"%s\"\r\n";
-static const char USER_331[] = "331 User name okay, need password\r\n";
+static const char USER_331[] = "331 User name okay, need password.\r\n";
 static const char NEED_ACCOUNT_332[] = "332 Need account for login.\r\n";
 static const char LOCAL_ERROR_451[] = "451 Requested action aborted.\r\n";
-static const char SYNTAX_ERROR_501[] = "501 Syntax error\r\n";
-static const char NOT_IMPLEMENTED_502[] = "502 Command not implemented\r\n";
-static const char WRONG_SEQUENCE_503[] = "503 Bad sequence.\n\r";
-static const char NOT_LOGGED_530[] = "530 Not logged in\r\n";
-static const char NOT_FOUND_550[] = "550 Requested action not taken.\r\n";
+static const char SYNTAX_ERROR_501[] = "501 Syntax error.\r\n";
+static const char NOT_IMPLEMENTED_502[] = "502 Command not implemented.\r\n";
+static const char BAD_SEQUENCE_503[] = "503 Bad sequence.\n\r";
+static const char NOT_LOGGED_530[] = "530 Not logged in.\r\n";
+static const char NOT_TAKEN_550[] = "550 Requested action not taken.\r\n";
 
 #endif /* MESSAGES_H */

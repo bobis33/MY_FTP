@@ -14,39 +14,37 @@
     #define EPITECH_ERROR 84
     #define SUCCESS 0
     #define MAX_CLIENTS 10
-
+    #define MAX_PATH 1024
 
     #include <netinet/in.h>
     #include <stdbool.h>
 
 struct server_s {
     int fd;
+    int port;
     char *path;
     struct protoent *pe;
-    int port;
     struct sockaddr_in sock;
 };
 
 struct data_s {
     int fd;
+    bool is_logged;
     char *username;
-    bool is_connected;
     char *path;
 };
 
 struct client_s {
-    fd_set master_fds;
-    fd_set read_fds;
-    struct sockaddr_in client_addr;
-    socklen_t client_len;
     int max_fd;
     char *path;
-    struct data_s clients[10];
+    fd_set master_fds;
+    fd_set read_fds;
+    socklen_t client_len;
+    struct sockaddr_in client_addr;
+    struct data_s clients[MAX_CLIENTS];
 };
 
-int parser(const char *port, const char *path, struct server_s *server);
-int check_args(int port, const char *path);
-int init_ftp(int port, const char *path, struct server_s *server);
+int parser(struct server_s *server, const char *port, const char *path);
 int core(struct server_s *server);
 
 #endif /* FTP_H */

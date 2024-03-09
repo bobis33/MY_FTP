@@ -5,7 +5,6 @@
 ** pass.c
 */
 
-#include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include "tools.h"
@@ -21,8 +20,8 @@ void cmd_pass(
     const char *args)
 {
     (void)client;
-    if (client_data->is_connected == true) {
-        write(fd, WRONG_SEQUENCE_503, strlen(WRONG_SEQUENCE_503));
+    if (client_data->is_logged == true) {
+        write(fd, BAD_SEQUENCE_503, strlen(BAD_SEQUENCE_503));
         return;
     }
     if (client_data->username == NULL) {
@@ -32,7 +31,7 @@ void cmd_pass(
     if (strcmp(client_data->username, DEFAULT_USER) == 0 &&
         (args == NULL || strcmp(args, DEFAULT_PASS) == 0)) {
         write(fd, LOGIN_230, strlen(LOGIN_230));
-        client_data->is_connected = true;
+        client_data->is_logged = true;
         return;
     }
     write(fd, NOT_LOGGED_530, strlen(NOT_LOGGED_530));

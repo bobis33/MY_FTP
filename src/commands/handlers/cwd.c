@@ -7,7 +7,7 @@
 
 #include <unistd.h>
 #include <string.h>
-#include "commands.h"
+#include <stdio.h>
 #include "tools.h"
 #include "messages.h"
 
@@ -17,7 +17,7 @@ void cmd_cwd(
     const int fd,
     const char *args)
 {
-    char new_path[1024];
+    char new_path[MAX_PATH];
 
     (void)args;
     (void)client;
@@ -28,6 +28,6 @@ void cmd_cwd(
         write(fd, CDUP_200, strlen(CDUP_200));
         client_data->path = strdup(new_path);
     } else {
-        write(fd, NOT_FOUND_550, strlen(NOT_FOUND_550));
+        write(fd, NOT_TAKEN_550, strlen(NOT_TAKEN_550));
     }
 }

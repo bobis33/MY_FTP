@@ -28,9 +28,9 @@ static cmd_info_t cmd_table[] = {
     {"LIST", cmd_list}, // to finish
 };
 
-void exec_client_command(
+static void exec_client_command(
     struct client_s *client,
-    const int fd,
+    int fd,
     const char *args,
     size_t index)
 {
@@ -46,9 +46,9 @@ void exec_client_command(
         cmd_table[index].handler(current_client, client, fd, args);
 }
 
-void check_cmd(
+static void loop_cmd(
     struct client_s *client,
-    const int fd,
+    int fd,
     const char *buffer)
 {
     char *cmd_str = strtok((char *)buffer, " \r\n");
@@ -71,9 +71,9 @@ void check_cmd(
 int handle_inputs(
     struct client_s *client,
     struct data_s *client_data,
-    const int fd)
+    int fd)
 {
-    char buffer[1024] = "\0";
+    char buffer[MAX_PATH] = "\0";
     int buffer_size = sizeof(buffer);
     ssize_t read_value = read(fd, buffer, buffer_size);
 
@@ -86,7 +86,7 @@ int handle_inputs(
             disconnect_client(client, client_data);
             break;
         default:
-            check_cmd(client, fd, buffer);
+            loop_cmd(client, fd, buffer);
             break;
     }
     return SUCCESS;

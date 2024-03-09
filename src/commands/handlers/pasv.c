@@ -5,11 +5,6 @@
 ** pasv.c
 */
 
-#include <unistd.h>
-#include <string.h>
-#include <malloc.h>
-#include "commands.h"
-#include "messages.h"
 #include "tools.h"
 
 void cmd_pasv(

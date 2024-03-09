@@ -7,7 +7,6 @@
 
 #include <unistd.h>
 #include <string.h>
-#include "commands.h"
 #include "messages.h"
 #include "tools.h"
 
@@ -17,14 +16,14 @@ void cmd_pwd(
     const int fd,
     const char *args)
 {
-    char buff[1024];
+    char buff[MAX_PATH];
 
     (void)args;
     (void)client;
     if (!is_logged(client_data, fd))
         return;
     if (!getcwd(buff, sizeof(buff))) {
-        write(fd, NOT_FOUND_550, strlen(NOT_FOUND_550));
+        write(fd, NOT_TAKEN_550, strlen(NOT_TAKEN_550));
         return;
     } else {
         write(fd, "257 ", 4);
