@@ -5,13 +5,14 @@
 ## Makefile
 ##
 
-
 SRC				=   src/core.c 							    \
-                    src/parser.c							\
+                    src/parser.c                            \
+                    src/tools.c                             \
                     src/server/server.c                     \
+                    src/server/socket.c                     \
                     src/client/client.c                     \
-                    src/commands/tools.c                    \
                     src/commands/handle_inputs.c            \
+                    src/commands/cmd_tools.c                \
                     src/commands/handlers/cdup.c            \
                     src/commands/handlers/cwd.c             \
                     src/commands/handlers/dele.c            \
@@ -54,7 +55,7 @@ $(NAME):			$(OBJ)
 
 all:				$(NAME)
 
-debug: 				CFLAGS += -g3 -DDEBUG
+debug: 				CFLAGS += -g3 -ggdb
 debug:              re
 
 clean:

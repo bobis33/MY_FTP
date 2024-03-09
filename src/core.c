@@ -7,6 +7,7 @@
 
 #include "server.h"
 #include "client.h"
+#include "tools.h"
 
 int core(struct server_s *server)
 {

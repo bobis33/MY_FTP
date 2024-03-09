@@ -12,12 +12,8 @@
 
     #include "ftp.h"
 
-void disconnect_client(
-    struct client_s *client,
-    struct data_s *disconnected_client);
 struct data_s *get_client_by_fd(struct client_s *client, int fd);
-bool is_logged(struct data_s *client_data, int fd);
-bool is_args_empty(const char *args, int fd);
-bool check_ptr(const void *ptr, int fd);
+
+void del_server(struct server_s *server);
 
 #endif /* TOOLS_H */

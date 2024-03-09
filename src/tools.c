@@ -6,37 +6,8 @@
 */
 
 #include <unistd.h>
-#include <string.h>
 #include <stdlib.h>
-#include "tools.h"
-#include "messages.h"
-
-bool check_ptr(const void *ptr, const int fd)
-{
-    if (ptr == NULL) {
-        write(fd, LOCAL_ERROR_451, strlen(LOCAL_ERROR_451));
-        return false;
-    }
-    return true;
-}
-
-bool is_args_empty(const char *args, const int fd)
-{
-    if (args == NULL) {
-        write(fd, SYNTAX_ERROR_501, strlen(SYNTAX_ERROR_501));
-        return true;
-    }
-    return false;
-}
-
-bool is_logged(struct data_s *client_data, const int fd)
-{
-    if (client_data->is_logged == false) {
-        write(fd, NOT_LOGGED_530, strlen(NOT_LOGGED_530));
-        return false;
-    }
-    return true;
-}
+#include "ftp.h"
 
 void disconnect_client(
     struct client_s *client,
@@ -57,4 +28,10 @@ struct data_s *get_client_by_fd(struct client_s *client, int fd)
         }
     }
     return NULL;
+}
+
+void del_server(struct server_s *server)
+{
+    free(server->path);
+    free(server);
 }

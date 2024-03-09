@@ -7,8 +7,8 @@
 
 #include <unistd.h>
 #include <string.h>
-#include "messages.h"
-#include "tools.h"
+#include "commands/messages.h"
+#include "commands/cmd_tools.h"
 
 void cmd_quit(
     struct data_s *client_data,
@@ -17,6 +17,6 @@ void cmd_quit(
     const char *args)
 {
     (void)args;
-    write(fd, QUIT_221, strlen(QUIT_221));
+    write_message(fd, QUIT_221);
     disconnect_client(client, client_data);
 }

@@ -5,8 +5,8 @@
 ** stor.c
 */
 
-#include "commands.h"
-#include "tools.h"
+#include "commands/commands.h"
+#include "commands/cmd_tools.h"
 
 void cmd_stor(
     struct data_s *client_data,

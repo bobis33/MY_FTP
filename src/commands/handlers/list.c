@@ -5,7 +5,7 @@
 ** list.c
 */
 
-#include "tools.h"
+#include "commands/cmd_tools.h"
 
 void cmd_list(
     struct data_s *client_data,

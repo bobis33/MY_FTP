@@ -10,7 +10,6 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
-
 #include "ftp.h"
 
 static bool is_dir(const char *path)
@@ -30,10 +29,6 @@ static bool is_dir(const char *path)
 
 static int init_ftp(struct server_s *server, const int port, const char *path)
 {
-    if (server == NULL) {
-        perror("malloc");
-        return ERROR;
-    }
     server->port = port;
     server->path = strdup(path);
     if (server->path == NULL) {

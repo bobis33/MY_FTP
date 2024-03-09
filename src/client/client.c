@@ -9,10 +9,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-
 #include "client.h"
 #include "tools.h"
-#include "messages.h"
+#include "commands/messages.h"
+#include "commands/cmd_tools.h"
 
 static void create_new_client(struct client_s *client, int new_fd)
 {
@@ -21,10 +21,9 @@ static void create_new_client(struct client_s *client, int new_fd)
             client->clients[i].fd = new_fd;
             client->clients[i].username = strdup("\n");
             client->clients[i].is_logged = false;
-            client->clients[i].path = strdup(client->path);
             FD_SET(new_fd, &client->master_fds);
             client->max_fd = client->max_fd > new_fd ? client->max_fd : new_fd;
-            write(new_fd, CONNECTED_220, strlen(CONNECTED_220));
+            write_message(new_fd, CONNECTED_220);
             break;
         }
     }
@@ -71,6 +70,7 @@ static int handle_select(struct client_s *client, int rv_select, int server_fd)
 {
     switch (rv_select) {
     case ERROR:
+        free(client);
         perror("select");
         return ERROR;
     case 0:
@@ -82,20 +82,12 @@ static int handle_select(struct client_s *client, int rv_select, int server_fd)
     }
 }
 
-int handle_clients(struct server_s *server)
+static int loop_client(struct client_s *client, struct server_s *server)
 {
-    struct client_s *client;
     int rv_select;
     int nfds;
 
-    client = malloc(sizeof(struct client_s));
-    client->client_len = sizeof(client->client_addr);
-    client->path = strdup(server->path);
-    chdir(client->path);
-    FD_ZERO(&client->master_fds);
-    FD_SET(server->fd, &client->master_fds);
-    client->max_fd = server->fd;
-    while (1) {
+    while (true) {
         nfds = client->max_fd + 1;
         client->read_fds = client->master_fds;
         rv_select = select(nfds, &client->read_fds, NULL, NULL, NULL);
@@ -104,4 +96,26 @@ int handle_clients(struct server_s *server)
             return ERROR;
         }
     }
+}
+
+int handle_clients(struct server_s *server)
+{
+    struct client_s *client;
+
+    client = malloc(sizeof(struct client_s));
+    if (client == NULL) {
+        free(client);
+        perror("malloc");
+        return ERROR;
+    }
+    client->client_len = sizeof(client->client_addr);
+    client->path = get_pwd();
+    if (chdir(server->path) == ERROR || client->path == NULL) {
+        free(client);
+        return ERROR;
+    }
+    FD_ZERO(&client->master_fds);
+    FD_SET(server->fd, &client->master_fds);
+    client->max_fd = server->fd;
+    return loop_client(client, server);
 }

@@ -7,8 +7,9 @@
 
 #include <string.h>
 #include <unistd.h>
-#include "tools.h"
-#include "messages.h"
+#include "commands/commands.h"
+#include "commands/messages.h"
+#include "commands/cmd_tools.h"
 
 static const char DEFAULT_USER[] = "Anonymous";
 static const char DEFAULT_PASS[] = "";
@@ -21,18 +22,18 @@ void cmd_pass(
 {
     (void)client;
     if (client_data->is_logged == true) {
-        write(fd, BAD_SEQUENCE_503, strlen(BAD_SEQUENCE_503));
+        write_message(fd, BAD_SEQUENCE_503);
         return;
     }
     if (client_data->username == NULL) {
-        write(fd, NEED_ACCOUNT_332, strlen(NEED_ACCOUNT_332));
+        write_message(fd, NEED_ACCOUNT_332);
         return;
     }
     if (strcmp(client_data->username, DEFAULT_USER) == 0 &&
         (args == NULL || strcmp(args, DEFAULT_PASS) == 0)) {
-        write(fd, LOGIN_230, strlen(LOGIN_230));
+        write_message(fd, LOGIN_230);
         client_data->is_logged = true;
         return;
     }
-    write(fd, NOT_LOGGED_530, strlen(NOT_LOGGED_530));
+    write_message(fd, NOT_LOGGED_530);
 }

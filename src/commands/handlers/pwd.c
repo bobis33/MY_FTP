@@ -7,8 +7,9 @@
 
 #include <unistd.h>
 #include <string.h>
-#include "messages.h"
-#include "tools.h"
+#include <stdio.h>
+#include "commands/messages.h"
+#include "commands/cmd_tools.h"
 
 void cmd_pwd(
     struct data_s *client_data,
@@ -22,12 +23,10 @@ void cmd_pwd(
     (void)client;
     if (!is_logged(client_data, fd))
         return;
-    if (!getcwd(buff, sizeof(buff))) {
-        write(fd, NOT_TAKEN_550, strlen(NOT_TAKEN_550));
+    if (snprintf(buff, sizeof(buff), PWD_257, get_pwd()) < 0) {
+        write_message(fd, LOCAL_ERROR_451);
         return;
     } else {
-        write(fd, "257 ", 4);
-        write(fd, buff, strlen(buff));
-        write(fd, "\r\n", 2);
+        write_message(fd, buff);
     }
 }

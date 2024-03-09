@@ -8,8 +8,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "tools.h"
-#include "messages.h"
+#include "commands/cmd_tools.h"
+#include "commands/messages.h"
 
 void cmd_user(
     struct data_s *client_data,
@@ -19,7 +19,7 @@ void cmd_user(
 {
     (void)client;
     if (client_data->is_logged == true) {
-        write(fd, BAD_SEQUENCE_503, strlen(BAD_SEQUENCE_503));
+        write_message(fd, BAD_SEQUENCE_503);
         return;
     }
     if (is_args_empty(args, fd))
@@ -28,6 +28,6 @@ void cmd_user(
         free(client_data->username);
         client_data->username = NULL;
     }
-    write(fd, USER_331, strlen(USER_331));
+    write_message(fd, USER_331);
     client_data->username = strdup(args);
 }

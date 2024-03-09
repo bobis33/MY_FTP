@@ -8,18 +8,17 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <stdio.h>
 #include "ftp.h"
 
 static void print_help(void)
 {
-    write(1, "USAGE: ./myftp port path\n", 25);
-    write(1, "\tport  is the port number on which the server socket ", 53);
-    write(1, "listens\n\tpath  is the path to the home directory for the", 56);
-    write(1, " \x1B[3mAnonymous\x1B[0m user\n", 24);
+    write(1, "USAGE: ./myftp port path\n\tport  is the port number on which "
+        "the server socket listens\n\tpath  is the path to the home "
+        "directory for the \x1B[3mAnonymous\x1B[0m user\n", 158);
 }
 
-int main(int argc, char *argv[])
+int main(int argc, const char *argv[])
 {
     struct server_s *server;
 
@@ -29,8 +28,13 @@ int main(int argc, char *argv[])
             return SUCCESS;
         }
         return EPITECH_ERROR;
-    } else if (argc == 3) {
+    }
+    if (argc == 3) {
         server = malloc(sizeof(struct server_s));
+        if (server == NULL) {
+            perror("malloc");
+            return EPITECH_ERROR;
+        }
         return parser(server, argv[1], argv[2])
         || core(server) == ERROR ? EPITECH_ERROR : SUCCESS;
     } else {

@@ -8,8 +8,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <malloc.h>
-#include "messages.h"
-#include "tools.h"
+#include "commands/messages.h"
+#include "commands/cmd_tools.h"
 
 void cmd_dele(
     struct data_s *client_data,
@@ -18,23 +18,23 @@ void cmd_dele(
     const char *args)
 {
     char *path = NULL;
-    char buff[MAX_PATH];
+    char *buff = NULL;
 
     (void)client;
     if (!is_logged(client_data, fd) || is_args_empty(args, fd))
         return;
-    getcwd(buff, sizeof(buff));
     if (args[0] == '/') {
         path = strdup(args);
     } else {
+        buff = get_pwd();
         path = malloc(strlen(buff) + strlen(args) + 2);
+        if (!check_ptr_cmd(path, fd) || !check_ptr_cmd(buff, fd))
+            return;
         strcpy(path, buff);
         strcat(path, "/");
         strcat(path, args);
     }
-    if (remove(path) == 0) {
-        write(fd, DELE_250, strlen(DELE_250));
-    } else {
-        write(fd, NOT_TAKEN_550, strlen(NOT_TAKEN_550));
-    }
+    return (remove(path) == 0) ?
+        write_message(fd, DELE_250) :
+        write_message(fd, NOT_TAKEN_550);
 }

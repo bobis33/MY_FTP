@@ -7,9 +7,9 @@
 
 #include <unistd.h>
 #include <string.h>
-#include "commands.h"
-#include "tools.h"
-#include "messages.h"
+#include "commands/commands.h"
+#include "commands/cmd_tools.h"
+#include "commands/messages.h"
 
 static cmd_info_t cmd_table[] = {
     {"USER", cmd_user},
@@ -80,14 +80,14 @@ int handle_inputs(
     switch (read_value) {
         case -1:
             perror("read");
-            break;
+            return ERROR;
         case 0:
             close(fd);
             disconnect_client(client, client_data);
             break;
         default:
             loop_cmd(client, fd, buffer);
-            break;
+            return SUCCESS;
     }
     return SUCCESS;
 }

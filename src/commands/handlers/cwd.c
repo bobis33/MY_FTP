@@ -8,8 +8,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
-#include "tools.h"
-#include "messages.h"
+#include "commands/cmd_tools.h"
+#include "commands/messages.h"
 
 void cmd_cwd(
     struct data_s *client_data,
@@ -17,17 +17,13 @@ void cmd_cwd(
     const int fd,
     const char *args)
 {
-    char new_path[MAX_PATH];
-
     (void)args;
     (void)client;
     if (!is_logged(client_data, fd) || is_args_empty(args, fd))
         return;
-    snprintf(new_path, sizeof(new_path), "%s/%s", client_data->path, args);
-    if (chdir(new_path) == 0) {
-        write(fd, CDUP_200, strlen(CDUP_200));
-        client_data->path = strdup(new_path);
+    if (chdir(args) == 0) {
+        write_message(fd, CDUP_200);
     } else {
-        write(fd, NOT_TAKEN_550, strlen(NOT_TAKEN_550));
+        write_message(fd, NOT_TAKEN_550);
     }
 }

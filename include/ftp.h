@@ -11,10 +11,10 @@
     #define FTP_H
 
     #define ERROR (-1)
-    #define EPITECH_ERROR 84
-    #define SUCCESS 0
-    #define MAX_CLIENTS 10
-    #define MAX_PATH 1024
+    #define EPITECH_ERROR (84)
+    #define SUCCESS (0)
+    #define MAX_CLIENTS (10)
+    #define MAX_PATH (1024)
 
     #include <netinet/in.h>
     #include <stdbool.h>
@@ -37,8 +37,8 @@ struct data_s {
     int fd;
     bool is_logged;
     char *username;
-    char *path;
     data_mode_t mode;
+    struct sockaddr_in sock;
 };
 
 struct client_s {

@@ -7,8 +7,8 @@
 
 #include <unistd.h>
 #include <string.h>
-#include "messages.h"
-#include "tools.h"
+#include "commands/messages.h"
+#include "commands/cmd_tools.h"
 
 void cmd_help(
     struct data_s *client_data,
@@ -21,5 +21,5 @@ void cmd_help(
     (void)client_data;
     if (!is_logged(client_data, fd))
         return;
-    write(fd, HELP_214, strlen(HELP_214));
+    write_message(fd, HELP_214);
 }

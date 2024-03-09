@@ -6,9 +6,9 @@
 */
 
 #include <unistd.h>
-#include <string.h>
-#include "commands.h"
-#include "messages.h"
+#include "commands/commands.h"
+#include "commands/messages.h"
+#include "commands/cmd_tools.h"
 
 void cmd_noop(
     struct data_s *client_data,
@@ -19,5 +19,5 @@ void cmd_noop(
     (void)args;
     (void)client;
     (void)client_data;
-    write(fd, NOOP_200, strlen(NOOP_200));
+    write_message(fd, NOOP_200);
 }
