@@ -9,23 +9,10 @@ The network communication will be achieved through the use of TCP sockets.
 
 ## Usage
 
-### Build my_ftp
 
-``` bash
+```bash
 $> make
 [...]
-```
-
-you can also use the following commands:
-
-```bash
-$> make debug
-[...]
-```
-
-### Launch my_ftp
-
-```bash
 ./myftp [port] [path]
         port  is the port number on which the server socket listens
         path  is the path to the home directory for the Anonymous user
@@ -36,6 +23,14 @@ $> make debug
 ```bash
 $> make tests_run
 [...]
+```
+
+### Debug mode
+
+```bash
+$> make debug
+[...]
+$> valgrind --leak-check=full --show-leak-kinds=all -s ./myftp [port] [path]
 ```
 
 ## Commit Norms
