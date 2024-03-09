@@ -21,7 +21,7 @@ static cmd_info_t cmd_table[] = {
     {"PWD", cmd_pwd},
     {"PASV", cmd_pasv}, // to finish
     {"PORT", cmd_port}, // to finish
-    {"HELP", cmd_help}, // to finish
+    {"HELP", cmd_help},
     {"NOOP", cmd_noop},
     {"RETR", cmd_retr}, // to finish
     {"STOR", cmd_stor}, // to finish

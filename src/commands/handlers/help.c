@@ -21,8 +21,5 @@ void cmd_help(
     (void)client_data;
     if (!is_logged(client_data, fd))
         return;
-    if (args == NULL) {
-        write(fd, HELP_214, strlen(HELP_214));
-        return;
-    }
+    write(fd, HELP_214, strlen(HELP_214));
 }
