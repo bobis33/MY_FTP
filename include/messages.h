@@ -15,6 +15,7 @@ static const char CONNECTED_125[] = "125 Data connection already open.\r\n";
 static const char FILE_STATUS_150[] = "150 File status okay.\r\n";
 static const char CDUP_200[] = "200 Directory successfully changed.\r\n";
 static const char NOOP_200[] = "200 NOOP ok.\r\n";
+static const char PORT_200[] = "200 PORT ok.\r\n";
 static const char HELP_214[] = "214 Help message.\r\n";
 static const char CONNECTED_220[] = "220 Service ready for new user.\r\n";
 static const char QUIT_221[] = "221 Service closing control connection.\r\n";

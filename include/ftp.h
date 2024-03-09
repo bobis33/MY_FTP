@@ -27,11 +27,18 @@ struct server_s {
     struct sockaddr_in sock;
 };
 
+typedef enum data_mode_e {
+    ACTIVE,
+    PASSIVE,
+    NONE
+} data_mode_t;
+
 struct data_s {
     int fd;
     bool is_logged;
     char *username;
     char *path;
+    data_mode_t mode;
 };
 
 struct client_s {

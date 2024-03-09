@@ -13,12 +13,6 @@
     #include <stdio.h>
     #include "ftp.h"
 
-typedef enum data_mode_e {
-    ACTIVE,
-    PASSIVE,
-    NONE
-} data_mode_t;
-
 typedef struct cmd_info_s {
     const char *name;
     void (*handler)(
