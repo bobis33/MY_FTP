@@ -26,7 +26,6 @@ static cmd_info_t cmd_table[] = {
     {"RETR", cmd_retr}, // to finish
     {"STOR", cmd_stor}, // to finish
     {"LIST", cmd_list}, // to finish
-    {NULL, NULL}
 };
 
 void exec_client_command(

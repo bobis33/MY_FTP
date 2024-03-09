@@ -57,10 +57,8 @@ static void process_ready_fds(struct client_s *client, int serv_fd, int index)
         return;
     if (index == serv_fd) {
         new_fd = accept_new_client(client, serv_fd);
-        if (new_fd != ERROR) {
+        if (new_fd != ERROR)
             FD_SET(new_fd, &client->master_fds);
-            handle_inputs(client, get_client_by_fd(client, new_fd), new_fd);
-        }
     } else {
         current_client = get_client_by_fd(client, index);
         if (!current_client)
