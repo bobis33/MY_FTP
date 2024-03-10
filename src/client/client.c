@@ -103,14 +103,13 @@ int handle_clients(struct server_s *server)
     struct client_s *client;
 
     client = malloc(sizeof(struct client_s));
-    if (client == NULL) {
+    if (!check_ptr(client, "malloc")) {
         free(client);
-        perror("malloc");
         return ERROR;
     }
     client->client_len = sizeof(client->client_addr);
-    client->path = get_pwd();
-    if (chdir(server->path) == ERROR || client->path == NULL) {
+    client->root_path = get_pwd();
+    if (chdir(server->path) == ERROR || client->root_path == NULL) {
         free(client);
         return ERROR;
     }

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** myftp
 ** File description:
-** cmd_tools
+** cmd_tools.h
 */
 
 #pragma once

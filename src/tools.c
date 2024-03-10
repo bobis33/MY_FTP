@@ -7,7 +7,17 @@
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "ftp.h"
+
+bool check_ptr(void *ptr, const char *function_name)
+{
+    if (ptr == NULL) {
+        perror(function_name);
+        return false;
+    }
+    return true;
+}
 
 void disconnect_client(
     struct client_s *client,

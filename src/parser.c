@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** myftp
 ** File description:
-** parser
+** parser.c
 */
 
 #include <stdio.h>
@@ -10,7 +10,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include "ftp.h"
+#include "tools.h"
 
 static bool is_dir(const char *path)
 {
@@ -31,8 +31,7 @@ static int init_ftp(struct server_s *server, const int port, const char *path)
 {
     server->port = port;
     server->path = strdup(path);
-    if (server->path == NULL) {
-        perror("strdup");
+    if (!check_ptr(server->path, "strdup")) {
         free(server);
         return ERROR;
     }

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** myftp
 ** File description:
-** tools.c
+** cmd_tools.c
 */
 
 #include <unistd.h>

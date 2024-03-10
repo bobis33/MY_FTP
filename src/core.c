@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** myftp
 ** File description:
-** core
+** core.c
 */
 
 #include "server.h"

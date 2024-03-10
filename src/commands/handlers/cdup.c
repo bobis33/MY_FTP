@@ -11,12 +11,12 @@
 #include "commands/messages.h"
 #include "commands/cmd_tools.h"
 
-static bool is_at_root(const int fd, const char *client_path)
+static bool is_at_root(const int fd, const char *root_path)
 {
     char root[MAX_PATH];
     char *pwd = NULL;
 
-    snprintf(root, sizeof(root), "%s/", client_path);
+    snprintf(root, sizeof(root), "%s/", root_path);
     pwd = get_pwd();
     if (!check_ptr_cmd(pwd, fd))
         return false;
@@ -37,7 +37,7 @@ void cmd_cdup(
     (void)client;
     if (!is_logged(client_data, fd))
         return;
-    if (!is_at_root(fd, client->path))
+    if (!is_at_root(fd, client->root_path))
         return;
     if (chdir("..") == 0)
         write_message(fd, CDUP_200);

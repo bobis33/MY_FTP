@@ -6,8 +6,6 @@
 */
 
 #include <string.h>
-#include <unistd.h>
-#include "commands/commands.h"
 #include "commands/messages.h"
 #include "commands/cmd_tools.h"
 

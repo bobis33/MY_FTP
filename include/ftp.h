@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** myftp
 ** File description:
-** ftp
+** ftp.h
 */
 
 #pragma once
@@ -43,7 +43,7 @@ struct data_s {
 
 struct client_s {
     int max_fd;
-    char *path;
+    char *root_path;
     fd_set master_fds;
     fd_set read_fds;
     socklen_t client_len;

@@ -13,9 +13,9 @@ The network communication will be achieved through the use of TCP sockets.
 ```bash
 $> make re
 [...]
-./myftp [port] [path]
+./myftp [port] [root_path]
         port  is the port number on which the server socket listens
-        path  is the path to the home directory for the Anonymous user
+        root_path  is the root_path to the home directory for the Anonymous user
 ```
 
 ### Launch tests
@@ -30,7 +30,7 @@ $> make tests_run
 ```bash
 $> make fclean && make debug
 [...]
-$> valgrind --leak-check=full --show-leak-kinds=all -s ./myftp [port] [path]
+$> valgrind --leak-check=full --show-leak-kinds=all -s ./myftp [port] [root_path]
 ```
 
 ## FTP Commands

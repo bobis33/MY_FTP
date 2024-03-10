@@ -7,7 +7,6 @@
 
 #include <netdb.h>
 #include <stdio.h>
-#include "server.h"
 #include "tools.h"
 
 void init_sockaddr(struct sockaddr_in *sock, const int port)
@@ -27,8 +26,10 @@ int create_socket(struct server_s *server)
         &proto,
         buffer,
         sizeof(buffer),
-        &proto_ptr) != 0)
+        &proto_ptr) != 0) {
+        del_server(server);
         return ERROR;
+    }
     server->pe = proto_ptr;
     server->fd = socket(AF_INET, SOCK_STREAM, server->pe->p_proto);
     if (server->fd == ERROR) {

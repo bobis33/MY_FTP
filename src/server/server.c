@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** myftp
 ** File description:
-** server
+** server.c
 */
 
 #include <unistd.h>
