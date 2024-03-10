@@ -26,6 +26,7 @@ static const char DELE_250[] = "250 Requested file action okay.\r\n";
 static const char PWD_257[] = "257 \"%s\"\r\n";
 static const char USER_331[] = "331 User name okay, need password.\r\n";
 static const char NEED_ACCOUNT_332[] = "332 Need account for login.\r\n";
+static const char NO_MODE_425[] = "425 Use PORT or PASV first.\r\n";
 static const char LOCAL_ERROR_451[] = "451 Requested action aborted.\r\n";
 static const char SYNTAX_ERROR_501[] = "501 Syntax error.\r\n";
 static const char NOT_IMPLEMENTED_502[] = "502 Command not implemented.\r\n";

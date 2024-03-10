@@ -14,13 +14,14 @@
 #include "commands/messages.h"
 #include "commands/cmd_tools.h"
 
-static void create_new_client(struct client_s *client, int new_fd)
+static void create_new_client(struct client_s *client, const int new_fd)
 {
     for (register int index = 0; index < MAX_CLIENTS; index++) {
         if (client->clients[index].username == NULL) {
             client->clients[index].fd = new_fd;
             client->clients[index].username = strdup("\n");
             client->clients[index].is_logged = false;
+            client->clients[index].mode = NONE;
             FD_SET(new_fd, &client->master_fds);
             client->max_fd = client->max_fd > new_fd ? client->max_fd : new_fd;
             write_message(new_fd, CONNECTED_220);
@@ -29,7 +30,7 @@ static void create_new_client(struct client_s *client, int new_fd)
     }
 }
 
-static int accept_new_client(struct client_s *client, int server_fd)
+static int accept_new_client(struct client_s *client, const int server_fd)
 {
     int new_fd = accept(server_fd,
                         (struct sockaddr *)&client->client_addr,
@@ -47,7 +48,10 @@ static int accept_new_client(struct client_s *client, int server_fd)
     return new_fd;
 }
 
-static void process_ready_fds(struct client_s *client, int serv_fd, int fd)
+static void process_ready_fds(
+    struct client_s *client,
+    const int serv_fd,
+    const int fd)
 {
     struct data_s *current_client;
     int new_fd;
@@ -66,7 +70,10 @@ static void process_ready_fds(struct client_s *client, int serv_fd, int fd)
     }
 }
 
-static int handle_select(struct client_s *client, int rv_select, int server_fd)
+static int handle_select(
+    struct client_s *client,
+    const int rv_select,
+    const int server_fd)
 {
     switch (rv_select) {
     case ERROR:

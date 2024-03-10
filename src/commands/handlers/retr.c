@@ -5,7 +5,6 @@
 ** retr.c
 */
 
-#include "commands/commands.h"
 #include "commands/cmd_tools.h"
 
 void cmd_retr(
@@ -16,6 +15,8 @@ void cmd_retr(
 {
     (void)args;
     (void)client;
-    if (!is_logged(client_data, fd) || is_args_empty(args, fd))
+    if (!is_logged(client_data, fd)
+    || is_args_empty(args, fd)
+    || !is_mode(client_data->mode, fd))
         return;
 }

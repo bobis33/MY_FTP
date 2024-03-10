@@ -8,7 +8,15 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "ftp.h"
+#include "commands/messages.h"
+
+void write_message(const int fd, const char *message)
+{
+    if (write(fd, message, strlen(message)) == -1)
+        write(fd, LOCAL_ERROR_451, strlen(LOCAL_ERROR_451));
+}
 
 bool check_ptr(void *ptr, const char *function_name)
 {
