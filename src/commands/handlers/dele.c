@@ -5,9 +5,8 @@
 ** dele.c
 */
 
-#include <unistd.h>
-#include <string.h>
-#include <malloc.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "commands/messages.h"
 #include "commands/cmd_tools.h"
 
@@ -17,24 +16,18 @@ void cmd_dele(
     const int fd,
     const char *args)
 {
-    char *path = NULL;
-    char *buff = NULL;
+    char buff[MAX_PATH];
 
     (void)client;
     if (!is_logged(client_data, fd) || is_args_empty(args, fd))
         return;
-    if (args[0] == '/') {
-        path = strdup(args);
-    } else {
-        buff = get_pwd();
-        path = malloc(strlen(buff) + strlen(args) + 2);
-        if (!check_ptr_cmd(path, fd) || !check_ptr_cmd(buff, fd))
-            return;
-        strcpy(path, buff);
-        strcat(path, "/");
-        strcat(path, args);
+    if (realpath(args, buff) == NULL) {
+        write_message(fd, NOT_TAKEN_550);
+        return;
     }
-    return (remove(path) == 0) ?
+    if (!check_ptr_cmd(buff, fd))
+        return;
+    return (remove(buff) == 0) ?
         write_message(fd, DELE_250) :
         write_message(fd, NOT_TAKEN_550);
 }
