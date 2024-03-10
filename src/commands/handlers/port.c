@@ -5,17 +5,15 @@
 ** port.c
 */
 
-#include <string.h>
-#include <unistd.h>
 #include <stdio.h>
 #include "commands/cmd_tools.h"
 #include "commands/messages.h"
 
-static bool count_args(const char *args, int fd)
+static bool count_args(const char *args, const int fd)
 {
     int nb_args = 0;
 
-    for (int i = 0; args[i] != 0; i++) {
+    for (register int i = 0; args[i] != 0; i++) {
         if (args[i] == ',')
             nb_args++;
     }
@@ -36,7 +34,7 @@ static bool check_args_port(const char *args, int port_array[], int fd)
         write_message(fd, SYNTAX_ERROR_501);
         return false;
     }
-    for (int i = 0; i < 6; i++) {
+    for (register int i = 0; i < 6; i++) {
         if (port_array[i] == ERROR
             || port_array[i] < 0 || port_array[i] > 255) {
             write_message(fd, SYNTAX_ERROR_501);

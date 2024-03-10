@@ -32,7 +32,7 @@ void disconnect_client(
 
 struct data_s *get_client_by_fd(struct client_s *client, int fd)
 {
-    for (int index = 0; index < MAX_CLIENTS; index++) {
+    for (register int index = 0; index < MAX_CLIENTS; index++) {
         if (client->clients[index].fd == fd) {
             return &client->clients[index];
         }

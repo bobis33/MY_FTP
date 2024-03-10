@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** myftp
 ** File description:
-** client
+** client.c
 */
 
 #include <stdio.h>
@@ -16,11 +16,11 @@
 
 static void create_new_client(struct client_s *client, int new_fd)
 {
-    for (int i = 0; i < MAX_CLIENTS; i++) {
-        if (client->clients[i].username == NULL) {
-            client->clients[i].fd = new_fd;
-            client->clients[i].username = strdup("\n");
-            client->clients[i].is_logged = false;
+    for (register int index = 0; index < MAX_CLIENTS; index++) {
+        if (client->clients[index].username == NULL) {
+            client->clients[index].fd = new_fd;
+            client->clients[index].username = strdup("\n");
+            client->clients[index].is_logged = false;
             FD_SET(new_fd, &client->master_fds);
             client->max_fd = client->max_fd > new_fd ? client->max_fd : new_fd;
             write_message(new_fd, CONNECTED_220);
@@ -76,7 +76,7 @@ static int handle_select(struct client_s *client, int rv_select, int server_fd)
     case 0:
         return SUCCESS;
     default:
-        for (int index = 0; index != MAX_CLIENTS; index++)
+        for (register int index = 0; index != MAX_CLIENTS; index++)
             process_ready_fds(client, server_fd, index);
         return SUCCESS;
     }

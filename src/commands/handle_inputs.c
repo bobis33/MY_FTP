@@ -30,25 +30,25 @@ static cmd_info_t cmd_table[] = {
 
 static void exec_client_command(
     struct client_s *client,
-    int fd,
+    const int fd,
     const char *args,
-    size_t index)
+    const int index_cmd)
 {
     struct data_s *current_client = NULL;
 
-    for (int j = 0; j < MAX_CLIENTS; j++) {
-        if (client->clients[j].fd == fd) {
-            current_client = &client->clients[j];
+    for (register int index = 0; index < MAX_CLIENTS; index++) {
+        if (client->clients[index].fd == fd) {
+            current_client = &client->clients[index];
             break;
         }
     }
     if (current_client)
-        cmd_table[index].handler(current_client, client, fd, args);
+        cmd_table[index_cmd].handler(current_client, client, fd, args);
 }
 
 static void loop_cmd(
     struct client_s *client,
-    int fd,
+    const int fd,
     const char *buffer)
 {
     char *cmd_str = strtok((char *)buffer, " \r\n");
@@ -56,13 +56,13 @@ static void loop_cmd(
 
     if (cmd_str == NULL)
         return;
-    for (size_t i = 0; cmd_table[i].name != NULL; i++) {
+    for (register int index = 0; cmd_table[index].name != NULL; index++) {
         if (strncmp(cmd_str,
-                cmd_table[i].name,
-                strlen(cmd_table[i].name)) != 0)
+                cmd_table[index].name,
+                strlen(cmd_table[index].name)) != 0)
             continue;
-        if (cmd_table[i].handler != NULL)
-            exec_client_command(client, fd, args, i);
+        if (cmd_table[index].handler != NULL)
+            exec_client_command(client, fd, args, index);
         return;
     }
     write(fd, NOT_IMPLEMENTED_502, strlen(NOT_IMPLEMENTED_502));
@@ -71,7 +71,7 @@ static void loop_cmd(
 int handle_inputs(
     struct client_s *client,
     struct data_s *client_data,
-    int fd)
+    const int fd)
 {
     char buffer[MAX_PATH] = "\0";
     int buffer_size = sizeof(buffer);
