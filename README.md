@@ -11,7 +11,7 @@ The network communication will be achieved through the use of TCP sockets.
 
 
 ```bash
-$> make
+$> make re
 [...]
 ./myftp [port] [path]
         port  is the port number on which the server socket listens
@@ -28,10 +28,38 @@ $> make tests_run
 ### Debug mode
 
 ```bash
-$> make debug
+$> make fclean && make debug
 [...]
 $> valgrind --leak-check=full --show-leak-kinds=all -s ./myftp [port] [path]
 ```
+
+## FTP Commands
+
+The following is a list of commands available on the FTP server:
+
+| Command                         | Description                                  | Return Code                         |
+|---------------------------------|----------------------------------------------|-------------------------------------|
+| Connection Establishment        |                                              | `<- 220`                            |
+| Login                           |                                              |                                     |
+| `USER <SP> <username> <CRLF>`   | Specify user for authentication              | `<- 230` `<- xxx` `<- 331`          |
+| `PASS <SP> <password> <CRLF>`   | Specify password for authentication          | `<- 230` `<- 332` `<- xxx`          |
+| `CWD <SP> <pathname> <CRLF>`    | Change working directory                     | `<- 250` `<- xxx`                   |
+| `CDUP <CRLF>`                   | Change working directory to parent directory | `<- 200` `<- xxx`                   |
+| Logout                          |                                              |                                     |
+| `QUIT <CRLF>`                   | Disconnection                                | `<- 221` `<- xxx`                   |
+| Transfer parameters             |                                              |                                     |
+| `PORT <SP> <host-port> <CRLF>`  | Enable "active" mode for data transfer       | `<- 200` `<- xxx`                   |
+| `PASV <CRLF>`                   | Enable "passive" mode for data transfer      | `<- 227` `<- xxx`                   |
+| File action commands            |                                              |                                     |
+| `STOR <SP> <pathname> <CRLF>`   | Upload file from client to server            | `<- 150` `<- 226` `<- xxx` `<- xxx` |
+| `RETR <SP> <pathname> <CRLF>`   | Download file from server to client          | `<- 150` `<- 226` `<- xxx` `<- xxx` |
+| `LIST [<SP> <pathname>] <CRLF>` | List files in the current working directory  | `<- 150` `<- 226` `<- xxx` `<- xxx` |
+| `DELE <SP> <pathname> <CRLF>`   | Delete file on the server                    | `<- 250` `<- xxx`                   |
+| `PWD <CRLF>`                    | Print working directory                      | `<- 257` `<- xxx`                   |
+| Informational commands          |                                              |                                     |
+| `HELP [<SP> <string>] <CRLF>`   | List available commands                      | `<- 214` `<- xxx`                   |
+| Miscellaneous commands          |                                              |                                     |
+| `NOOP <CRLF>`                   | Do nothing                                   | `<- 200` `<- xxx`                   |
 
 ## Commit Norms
 
