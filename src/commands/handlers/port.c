@@ -10,7 +10,7 @@
 #include "commands/cmd_tools.h"
 #include "commands/messages.h"
 
-static int set_client_address(
+static bool set_client_address(
     struct data_s *client_data,
     const int port_array[],
     const int fd)
@@ -21,14 +21,14 @@ static int set_client_address(
         port_array[2], port_array[3]);
     if (inet_aton(ip, &client_data->sock.sin_addr) == 0) {
         write_message(fd, LOCAL_ERROR_451);
-        return ERROR;
+        return false;
     }
     client_data->sock.sin_family = AF_INET;
     client_data->sock.sin_port = htons((port_array[4] * 256) + port_array[5]);
-    return SUCCESS;
+    return true;
 }
 
-static int count_args(const char *args, const int fd)
+static bool count_args(const char *args, const int fd)
 {
     int nb_args = 0;
 
@@ -38,9 +38,9 @@ static int count_args(const char *args, const int fd)
     }
     if (nb_args != 5) {
         write_message(fd, SYNTAX_ERROR_501);
-        return ERROR;
+        return false;
     }
-    return SUCCESS;
+    return true;
 }
 
 static bool check_args_port(const char *args, int port_array[], int fd)
