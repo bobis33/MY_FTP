@@ -6,6 +6,7 @@
 */
 
 #include <unistd.h>
+
 #include "server.h"
 
 int handle_server(struct server_s *server)

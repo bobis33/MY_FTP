@@ -7,6 +7,7 @@
 
 #include <unistd.h>
 #include <string.h>
+
 #include "commands/commands.h"
 #include "commands/cmd_tools.h"
 #include "commands/messages.h"
@@ -65,7 +66,7 @@ static void loop_cmd(
             exec_client_command(client, fd, args, index);
         return;
     }
-    write(fd, NOT_IMPLEMENTED_502, strlen(NOT_IMPLEMENTED_502));
+    write_message(fd, NOT_IMPLEMENTED_502);
 }
 
 int handle_inputs(

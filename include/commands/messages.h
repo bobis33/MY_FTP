@@ -7,9 +7,6 @@
 
 #pragma once
 
-#ifndef MESSAGES_H
-    #define MESSAGES_H
-
 static const char SERVICE_READY_120[] = "120 Service ready in nn minutes.\r\n";
 static const char CONNECTED_125[] = "125 Data connection already open.\r\n";
 static const char FILE_STATUS_150[] = "150 File status okay.\r\n";
@@ -33,5 +30,3 @@ static const char NOT_IMPLEMENTED_502[] = "502 Command not implemented.\r\n";
 static const char BAD_SEQUENCE_503[] = "503 Bad sequence.\n\r";
 static const char NOT_LOGGED_530[] = "530 Not logged in.\r\n";
 static const char NOT_TAKEN_550[] = "550 Requested action not taken.\r\n";
-
-#endif /* MESSAGES_H */

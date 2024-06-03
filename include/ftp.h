@@ -7,9 +7,6 @@
 
 #pragma once
 
-#ifndef FTP_H
-    #define FTP_H
-
     #define ERROR (-1)
     #define EPITECH_ERROR (84)
     #define SUCCESS (0)
@@ -53,5 +50,3 @@ struct client_s {
 
 int parser(struct server_s *server, const char *port, const char *path);
 int core(struct server_s *server);
-
-#endif /* FTP_H */

@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "commands/messages.h"
 #include "commands/cmd_tools.h"
 

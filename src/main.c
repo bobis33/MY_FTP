@@ -5,17 +5,17 @@
 ** main.c
 */
 
-#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "ftp.h"
 #include "tools.h"
 
 static void print_help(void)
 {
-    write(1, "USAGE: ./myftp port path\n\tport  is the port number on which "
-        "the server socket listens\n\tpath  is the path to the home directory"
-        " for the \x1B[3mAnonymous\x1B[0m user\n", 158);
+    write_message(1, "USAGE: ./myftp port path\n\tport  is the port number on "
+        "which the server socket listens\n\tpath  is the path to the home"
+        " directory for the \x1B[3mAnonymous\x1B[0m user\n");
 }
 
 int main(int argc, const char *argv[])

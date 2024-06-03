@@ -7,6 +7,7 @@
 
 #include <netdb.h>
 #include <stdio.h>
+
 #include "tools.h"
 
 void init_sockaddr(struct sockaddr_in *sock, const int port)

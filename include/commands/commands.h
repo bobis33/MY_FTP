@@ -7,9 +7,6 @@
 
 #pragma once
 
-#ifndef COMMANDS_H
-    #define COMMANDS_H
-
     #include <stdio.h>
     #include "ftp.h"
 
@@ -92,5 +89,3 @@ void cmd_user(
     struct client_s *client,
     int fd,
     const char *args);
-
-#endif /* COMMANDS_H */

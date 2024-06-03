@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <unistd.h>
+
 #include "tools.h"
 
 static bool is_dir(const char *path)
@@ -41,7 +41,7 @@ static int init_ftp(struct server_s *server, const int port, const char *path)
 static int check_args(const int port, const char *path)
 {
     if (port < 1024 || port > 65535) {
-        write(2, "Port must be between 1024 and 65535\n", 36);
+        write_message(2, "Port must be between 1024 and 65535\n");
         return ERROR;
     }
     if (is_dir(path) == false)
