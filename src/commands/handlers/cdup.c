@@ -29,8 +29,8 @@ static bool is_at_root(const int fd, const char *root_path)
 }
 
 void cmd_cdup(
-    struct data_s *client_data,
-    struct client_s *client,
+    data_t *client_data,
+    client_t *client,
     const int fd,
     const char *args)
 {

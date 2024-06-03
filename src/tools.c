@@ -28,8 +28,8 @@ bool check_ptr(void *ptr, const char *function_name)
 }
 
 void disconnect_client(
-    struct client_s *client,
-    struct data_s *disconnected_client)
+    client_t *client,
+    data_t *disconnected_client)
 {
     disconnected_client->is_logged = false;
     free(disconnected_client->username);
@@ -38,7 +38,7 @@ void disconnect_client(
     disconnected_client->username = NULL;
 }
 
-struct data_s *get_client_by_fd(struct client_s *client, int fd)
+data_t *get_client_by_fd(client_t *client, int fd)
 {
     for (register int index = 0; index < MAX_CLIENTS; index++) {
         if (client->clients[index].fd == fd) {
@@ -48,7 +48,7 @@ struct data_s *get_client_by_fd(struct client_s *client, int fd)
     return NULL;
 }
 
-void del_server(struct server_s *server)
+void del_server(server_t *server)
 {
     free(server->path);
     free(server);

@@ -27,7 +27,7 @@ static bool is_dir(const char *path)
     return false;
 }
 
-static int init_ftp(struct server_s *server, const int port, const char *path)
+static int init_ftp(server_t *server, const int port, const char *path)
 {
     server->port = port;
     server->path = strdup(path);
@@ -49,7 +49,7 @@ static int check_args(const int port, const char *path)
     return SUCCESS;
 }
 
-int parser(struct server_s *server, const char *port, const char *path)
+int parser(server_t *server, const char *port, const char *path)
 {
     const int port_to_int = atoi(port);
 

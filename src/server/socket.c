@@ -17,7 +17,7 @@ void init_sockaddr(struct sockaddr_in *sock, const int port)
     sock->sin_addr.s_addr = INADDR_ANY;
 }
 
-int create_socket(struct server_s *server)
+int create_socket(server_t *server)
 {
     struct protoent proto;
     struct protoent *proto_ptr;

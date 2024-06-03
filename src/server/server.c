@@ -9,7 +9,7 @@
 
 #include "server.h"
 
-int handle_server(struct server_s *server)
+int handle_server(server_t *server)
 {
     init_sockaddr(&server->sock, server->port);
     if (create_socket(server) == ERROR

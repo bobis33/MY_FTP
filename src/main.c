@@ -20,7 +20,7 @@ static void print_help(void)
 
 int main(int argc, const char *argv[])
 {
-    struct server_s *server;
+    server_t *server;
 
     if (argc == 2) {
         if (strcmp(argv[1], "-help") == 0) {
@@ -30,7 +30,7 @@ int main(int argc, const char *argv[])
         return EPITECH_ERROR;
     }
     if (argc == 3) {
-        server = malloc(sizeof(struct server_s));
+        server = malloc(sizeof(server_t));
         if (!check_ptr(server, "malloc"))
             return EPITECH_ERROR;
         return parser(server, argv[1], argv[2])

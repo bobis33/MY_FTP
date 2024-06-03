@@ -40,7 +40,7 @@ bool is_args_empty(const char *args, const int fd)
     return false;
 }
 
-bool is_logged(struct data_s *client_data, const int fd)
+bool is_logged(data_t *client_data, const int fd)
 {
     if (client_data->is_logged == false) {
         write_message(fd, NOT_LOGGED_530);
@@ -49,7 +49,7 @@ bool is_logged(struct data_s *client_data, const int fd)
     return true;
 }
 
-bool is_mode(const enum data_mode_e mode, const int fd)
+bool is_mode(const data_mode_t mode, const int fd)
 {
     if (mode == NONE) {
         write_message(fd, NO_MODE_425);

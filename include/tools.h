@@ -10,6 +10,6 @@
     #include "ftp.h"
     #include "commands/cmd_tools.h"
 
-struct data_s *get_client_by_fd(struct client_s *client, int fd);
-void del_server(struct server_s *server);
+struct data_s *get_client_by_fd(client_t *client, int fd);
+void del_server(server_t *server);
 bool check_ptr(void *ptr, const char *function_name);

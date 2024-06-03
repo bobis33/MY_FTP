@@ -12,8 +12,8 @@
 #include "commands/messages.h"
 
 void cmd_user(
-    struct data_s *client_data,
-    struct client_s *client,
+    data_t *client_data,
+    client_t *client,
     const int fd,
     const char *args)
 {

@@ -30,12 +30,12 @@ static cmd_info_t cmd_table[] = {
 };
 
 static void exec_client_command(
-    struct client_s *client,
+    client_t *client,
     const int fd,
     const char *args,
     const int index_cmd)
 {
-    struct data_s *current_client = NULL;
+    data_t *current_client = NULL;
 
     for (register int index = 0; index < MAX_CLIENTS; index++) {
         if (client->clients[index].fd == fd) {
@@ -48,7 +48,7 @@ static void exec_client_command(
 }
 
 static void loop_cmd(
-    struct client_s *client,
+    client_t *client,
     const int fd,
     const char *buffer)
 {
@@ -70,8 +70,8 @@ static void loop_cmd(
 }
 
 int handle_inputs(
-    struct client_s *client,
-    struct data_s *client_data,
+    client_t *client,
+    data_t *client_data,
     const int fd)
 {
     char buffer[MAX_PATH] = "\0";

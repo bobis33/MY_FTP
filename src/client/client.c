@@ -15,7 +15,7 @@
 #include "commands/messages.h"
 #include "commands/cmd_tools.h"
 
-static void remove_client(struct client_s *client, const int fd)
+static void remove_client(client_t *client, const int fd)
 {
     for (int i = 0; i < MAX_CLIENTS; i++) {
         if (client->clients[i].fd == fd) {
@@ -31,7 +31,7 @@ static void remove_client(struct client_s *client, const int fd)
     }
 }
 
-static int create_new_client(struct client_s *client, const int new_fd)
+static int create_new_client(client_t *client, const int new_fd)
 {
     for (int index = 0; index < MAX_CLIENTS; index++) {
         if (client->clients[index].username == NULL) {
@@ -47,7 +47,7 @@ static int create_new_client(struct client_s *client, const int new_fd)
     return SUCCESS;
 }
 
-static int accept_new_client(struct client_s *client, const int server_fd)
+static int accept_new_client(client_t *client, const int server_fd)
 {
     int new_fd =
         accept(server_fd,
@@ -68,11 +68,11 @@ static int accept_new_client(struct client_s *client, const int server_fd)
 }
 
 static void process_ready_fds(
-    struct client_s *client,
+    client_t *client,
     const int serv_fd,
     const int fd)
 {
-    struct data_s *current_client;
+    data_t *current_client;
 
     if (!FD_ISSET(fd, &client->read_fds))
         return;
@@ -92,7 +92,7 @@ static void process_ready_fds(
     }
 }
 
-static int loop_client(struct client_s *client, struct server_s *server)
+static int loop_client(client_t *client, server_t *server)
 {
     int rv_select;
     int nfds;
@@ -111,9 +111,9 @@ static int loop_client(struct client_s *client, struct server_s *server)
     }
 }
 
-int handle_clients(struct server_s *server)
+int handle_clients(server_t *server)
 {
-    struct client_s *client = malloc(sizeof(struct client_s));
+    client_t *client = malloc(sizeof(client_t));
 
     if (!client) {
         perror("malloc");

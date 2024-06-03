@@ -9,8 +9,8 @@
 #include "commands/cmd_tools.h"
 
 void cmd_noop(
-    struct data_s *client_data,
-    struct client_s *client,
+    data_t *client_data,
+    client_t *client,
     const int fd,
     const char *args)
 {

@@ -7,22 +7,22 @@
 
 #pragma once
 
+    #include <netinet/in.h>
+    #include <stdbool.h>
+
     #define ERROR (-1)
     #define EPITECH_ERROR (84)
     #define SUCCESS (0)
     #define MAX_CLIENTS (1024)
     #define MAX_PATH (1024)
 
-    #include <netinet/in.h>
-    #include <stdbool.h>
-
-struct server_s {
+typedef struct server_s {
     int fd;
     int port;
     char *path;
     struct protoent *pe;
     struct sockaddr_in sock;
-};
+} server_t;
 
 typedef enum data_mode_e {
     ACTIVE,
@@ -30,23 +30,23 @@ typedef enum data_mode_e {
     NONE
 } data_mode_t;
 
-struct data_s {
+typedef struct data_s {
     int fd;
     bool is_logged;
     char *username;
     data_mode_t mode;
     struct sockaddr_in sock;
-};
+} data_t;
 
-struct client_s {
+typedef struct client_s {
     int max_fd;
     char *root_path;
     fd_set master_fds;
     fd_set read_fds;
     socklen_t client_len;
     struct sockaddr_in client_addr;
-    struct data_s clients[MAX_CLIENTS];
-};
+    data_t clients[MAX_CLIENTS];
+} client_t;
 
-int parser(struct server_s *server, const char *port, const char *path);
-int core(struct server_s *server);
+int parser(server_t *server, const char *port, const char *path);
+int core(server_t *server);

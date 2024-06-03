@@ -9,8 +9,8 @@
 
     #include "ftp.h"
 
-int handle_clients(struct server_s *server);
+int handle_clients(server_t *server);
 int handle_inputs(
-    struct client_s *client,
-    struct data_s *client_data,
+    client_t *client,
+    data_t *client_data,
     int fd);
