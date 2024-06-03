@@ -2,6 +2,9 @@
 
 <img src="doc/Epitech_banner.png" alt="Architecture">
 
+[![CI FTP][ci-badge]][ci]
+
+
 ## Description
 
 The goal of this project is to create a FTP server [RFC959 compliant](https://www.rfc-editor.org/rfc/rfc959).
@@ -13,10 +16,15 @@ The network communication will be achieved through the use of TCP sockets.
 ```bash
 $> make re
 [...]
-./myftp [port] [root_path]
-        port  is the port number on which the server socket listens
-        root_path  is the root_path to the home directory for the Anonymous user
 ```
+
+```bash
+$>./myftp [port] [root_path]
+```
+
+> ```port```       is the port number on which the server socket listens
+
+> ```root_path```  is the root_path to the home directory for the Anonymous user
 
 ### Launch tests
 
@@ -74,3 +82,7 @@ The following is a list of commands available on the FTP server:
 | style       | Change that does not affect functionality or semantics (indentation, formatting, adding space, renaming a variable, etc.) |
 | docs        | Writing or updating documentation                                                                                         |
 | test        | Addition or modification of tests                                                                                         |
+
+
+[ci]: https://github.com/EpitechPromo2027/B-NWP-400-BDX-4-1-myftp-elliot.masina/actions/workflows/workflow.yml
+[ci-badge]: https://github.com/EpitechPromo2027/B-NWP-400-BDX-4-1-myftp-elliot.masina/actions/workflows/workflow.yml/badge.svg
