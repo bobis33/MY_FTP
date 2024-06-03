@@ -40,7 +40,7 @@ OBJ_TEST		=	$(SRC_TEST:.c=.o)						\
 
 INC             =   -I./include
 
-CFLAGS			=	-W -Wall -Werror -Wextra $(INC) -std=c11 -D_GNU_SOURCE
+CFLAGS			=	-W -Wall -Werror -Wextra $(INC) -std=c17 -D_GNU_SOURCE
 
 LDFLAGS         =   --coverage -lcriterion
 
