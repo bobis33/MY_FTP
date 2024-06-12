@@ -55,8 +55,10 @@ static void loop_cmd(
     char *cmd_str = strtok((char *)buffer, " \r\n");
     char *args = strtok(NULL, "\r\n");
 
-    if (cmd_str == NULL)
+    if (cmd_str == NULL) {
+        write_message(fd, SYNTAX_ERROR_500);
         return;
+    }
     for (register int index = 0; cmd_table[index].name != NULL; index++) {
         if (strncmp(cmd_str,
                 cmd_table[index].name,
@@ -66,7 +68,7 @@ static void loop_cmd(
             exec_client_command(client, fd, args, index);
         return;
     }
-    write_message(fd, NOT_IMPLEMENTED_502);
+    write_message(fd, SYNTAX_ERROR_500);
 }
 
 int handle_inputs(
