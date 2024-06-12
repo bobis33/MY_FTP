@@ -32,6 +32,7 @@ typedef enum data_mode_e {
 
 typedef struct data_s {
     int fd;
+    int pasv_fd;
     bool is_logged;
     char *username;
     data_mode_t mode;
