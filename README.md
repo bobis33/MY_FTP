@@ -10,6 +10,12 @@
 The goal of this project is to create a FTP server [RFC959 compliant](https://www.rfc-editor.org/rfc/rfc959).
 The network communication will be achieved through the use of TCP sockets.
 
+
+## Requirements
+
+- C17
+- Make
+
 ## Usage
 
 
@@ -84,5 +90,5 @@ The following is a list of commands available on the FTP server:
 | test        | Addition or modification of tests                                                                                         |
 
 
-[ci]: https://github.com/EpitechPromo2027/B-NWP-400-BDX-4-1-myftp-elliot.masina/actions/workflows/workflow.yml
-[ci-badge]: https://github.com/EpitechPromo2027/B-NWP-400-BDX-4-1-myftp-elliot.masina/actions/workflows/workflow.yml/badge.svg
+[ci]: https://github.com/bobis33/MyFTP/actions/workflows/workflow.yml
+[ci-badge]: https://github.com/bobis33/MyFTP/actions/workflows/workflow.yml/badge.svg

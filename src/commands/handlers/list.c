@@ -6,6 +6,7 @@
 */
 
 #include "commands/cmd_tools.h"
+#include "commands/messages.h"
 
 void cmd_list(
     data_t *client_data,
@@ -17,4 +18,5 @@ void cmd_list(
     (void)client;
     if (!is_logged(client_data, fd) || !is_mode(client_data->mode, fd))
         return;
+    write_message(fd, NOT_TAKEN_550);
 }

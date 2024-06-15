@@ -6,6 +6,7 @@
 */
 
 #include "commands/cmd_tools.h"
+#include "commands/messages.h"
 
 void cmd_retr(
     data_t *client_data,
@@ -19,4 +20,5 @@ void cmd_retr(
     || is_args_empty(args, fd)
     || !is_mode(client_data->mode, fd))
         return;
+    write_message(fd, NOT_TAKEN_550);
 }

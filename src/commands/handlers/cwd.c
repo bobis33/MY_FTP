@@ -18,10 +18,10 @@ void cmd_cwd(
 {
     (void)args;
     (void)client;
-    if (!is_logged(client_data, fd) || is_args_empty(args, fd))
+    if (!is_logged(client_data, fd))
         return;
     if (chdir(args) == 0) {
-        write_message(fd, CDUP_200);
+        write_message(fd, CWD_250);
     } else {
         write_message(fd, NOT_TAKEN_550);
     }
