@@ -1,4 +1,4 @@
-# EPITECH Project | B-NWP-400 | my_ftp
+# EPITECH | B-NWP-400 | MyFTP
 
 <img src="doc/Epitech_banner.png" alt="Architecture">
 
